@@ -1,0 +1,1385 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Handbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F5F7; --surface:#FFFFFF; --ink:#172033; --muted:#5B6577; --rule:#D5DBE3;
+  --amber:#C98A00; --amber-soft:#FFF4D6; --green:#1E7F5C; --green-soft:#E3F3EC; --track:#E3E8EE;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --cond:"IBM Plex Sans Condensed","IBM Plex Sans",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#10151F; --surface:#182030; --ink:#E6EAF0; --muted:#9AA4B5; --rule:#2A3446;
+    --amber:#F5B82E; --amber-soft:#2C2616; --green:#3FB68B; --green-soft:#16271F; --track:#253043;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10151F; --surface:#182030; --ink:#E6EAF0; --muted:#9AA4B5; --rule:#2A3446;
+  --amber:#F5B82E; --amber-soft:#2C2616; --green:#3FB68B; --green-soft:#16271F; --track:#253043;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-text-size-adjust:100%}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px 64px}
+header.top{padding:28px 0 8px}
+header.top h1{font-family:var(--cond);font-weight:700;font-size:clamp(28px,7vw,44px);line-height:1.05;margin:0;letter-spacing:-.01em}
+header.top p{margin:8px 0 0;color:var(--muted);max-width:60ch}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--rule);margin:16px -16px 0;padding:0 16px}
+nav.tabs .scroller{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:8px 0}
+nav.tabs .scroller::-webkit-scrollbar{display:none}
+nav.tabs button{flex:0 0 auto;font-family:var(--cond);font-weight:600;font-size:15px;border:1px solid transparent;background:none;color:var(--muted);padding:8px 12px;border-radius:999px;cursor:pointer;display:flex;align-items:center;gap:8px}
+nav.tabs button .pct{font-family:var(--mono);font-size:12px;font-weight:500;opacity:.8}
+nav.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+nav.tabs button:focus-visible,summary:focus-visible,input:focus-visible,.tbtn:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.hero{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:end;padding:28px 0 16px;border-bottom:2px solid var(--ink)}
+.hero h2{font-family:var(--cond);font-weight:700;font-size:clamp(26px,6vw,36px);margin:0;line-height:1.1}
+.hero .sub{color:var(--muted);margin-top:6px;max-width:58ch}
+.count{text-align:right;font-family:var(--cond);line-height:1}
+.count .big{font-size:clamp(40px,11vw,64px);font-weight:700}
+.count .of{font-size:18px;color:var(--muted);font-weight:500}
+.bar{height:6px;background:var(--track);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--green);width:0;transition:width .3s ease}
+.hero .bar{grid-column:1/-1;height:8px}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px;align-items:center}
+.tbtn{font:inherit;font-size:14px;border:1px solid var(--rule);background:var(--surface);color:var(--ink);padding:6px 12px;border-radius:8px;cursor:pointer}
+.tbtn[aria-pressed="true"]{border-color:var(--ink)}
+.sync{font-size:13px;color:var(--muted);margin-left:auto}
+details.sec{border-bottom:1px solid var(--rule)}
+details.sec>summary{list-style:none;cursor:pointer;padding:18px 0 14px;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:baseline}
+details.sec>summary::-webkit-details-marker{display:none}
+.secno{font-family:var(--mono);font-size:13px;color:var(--muted);min-width:2.2em}
+.sectitle{font-family:var(--cond);font-weight:600;font-size:20px;line-height:1.2}
+.secmeta{display:block;font-family:var(--sans);font-size:13px;color:var(--muted);font-weight:400;margin-top:2px}
+.secprog{font-family:var(--mono);font-size:13px;color:var(--muted);white-space:nowrap}
+details.sec[open]>summary .chev{transform:rotate(90deg)}
+.chev{display:inline-block;transition:transform .15s;margin-right:6px;color:var(--muted)}
+.sec .minibar{grid-column:2/-1;height:3px}
+.done-sec .secprog{color:var(--green);font-weight:500}
+.body{padding:0 0 18px}
+.note{color:var(--muted);font-size:14px;margin:0 0 12px;padding-left:12px;border-left:2px solid var(--rule)}
+ul.items{list-style:none;margin:0;padding:0}
+li.item{padding:10px 0;border-top:1px dashed var(--rule)}
+li.item:first-child{border-top:0}
+label.chk{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;cursor:pointer}
+label.chk input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--green);cursor:pointer}
+.ttl{font-weight:600}
+.det{display:block;color:var(--muted);font-size:14.5px;margin-top:2px}
+.checked>.ttl,.checked .ttl{text-decoration:line-through;text-decoration-color:var(--green);text-decoration-thickness:2px}
+ul.prac{list-style:none;margin:8px 0 0 32px;padding:0}
+ul.prac li{padding:3px 0}
+ul.prac label.chk{grid-template-columns:18px 1fr;gap:8px}
+ul.prac label.chk input{width:16px;height:16px}
+ul.prac .ptxt{font-family:var(--mono);font-size:13.5px;line-height:1.45}
+.plabel{font-size:12px;color:var(--amber);font-weight:600;margin:10px 0 0 32px}
+.proj{background:var(--amber-soft);border-left:4px solid var(--amber);border-radius:0 10px 10px 0;padding:14px 16px;margin:14px 0 4px}
+.proj h4{font-family:var(--cond);font-size:18px;margin:0 0 4px}
+.proj .uses{font-size:13.5px;color:var(--muted);margin-bottom:8px}
+.proj ul{list-style:none;margin:0;padding:0}
+.proj li{padding:4px 0}
+.hide-done li.item.all-done,.hide-done ul.prac li.pdone,.hide-done .proj li.pdone{display:none}
+/* plan tab */
+.plan h3{font-family:var(--cond);font-size:22px;margin:28px 0 8px}
+.plan p,.plan li{max-width:68ch}
+.tablewrap{overflow-x:auto;border:1px solid var(--rule);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14.5px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:var(--cond);font-weight:600;font-size:15px}
+tr:last-child td{border-bottom:0}
+td:first-child{font-family:var(--cond);font-weight:600;white-space:nowrap}
+.rules li{margin:6px 0}
+.overall{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:12px}
+.ov{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:12px;cursor:pointer;text-align:left;font:inherit;color:inherit}
+.ov b{font-family:var(--cond);font-size:16px;display:block}
+.ov span{font-family:var(--mono);font-size:13px;color:var(--muted);display:block;margin:4px 0 8px}
+footer{color:var(--muted);font-size:13px;margin-top:40px}
+.syncbox{background:var(--surface);border:1px solid var(--rule);border-left:4px solid var(--green);border-radius:0 10px 10px 0;padding:14px 16px;margin:12px 0 4px}
+.syncbox h3{font-family:var(--cond);font-size:18px;margin:0 0 4px}
+.syncbox p,.syncbox ol{margin:6px 0;font-size:14.5px;max-width:68ch}
+.syncbox ol{padding-left:20px}
+.syncbox a{color:var(--green);font-weight:600}
+.syncbox input{font:inherit;font-size:14px;flex:1 1 220px;min-width:0;padding:6px 10px;border:1px solid var(--rule);border-radius:8px;background:var(--bg);color:var(--ink)}
+.gmsg{color:var(--muted);font-size:13.5px;min-height:1.2em}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <h1>Forward Deployed Engineer prep handbook</h1>
+  <p>Six separate roadmaps, in order. Tick each topic, practice program and project as you finish it. Your progress is saved automatically.</p>
+</header>
+<nav class="tabs" aria-label="Roadmaps"><div class="scroller" id="tabs" role="tablist"></div></nav>
+<main id="view"></main>
+<footer>Order inside each roadmap matters: work top to bottom. The Plan tab shows how the roadmaps run in parallel month by month.</footer>
+</div>
+<script>
+const ROADMAPS = [];
+ROADMAPS.push({key:"py", name:"Python", title:"Python programming", sub:"From rusty to production-grade Python: syntax, OOP, patterns, testing, APIs, databases and data handling. Do every practice program by hand, no copy-paste.", text:String.raw`
+## Environment and tooling | Week 1
+- Install Python 3.12+ and understand interpreter vs REPL :: python --version, running .py files, the interactive shell, python -m
+  > In the REPL compute 2**100, 7/2 vs 7//2, 7%2, -7//2 and explain each result
+- Virtual environments and packages with uv (or venv + pip) :: create a venv, install/remove packages, pyproject.toml, requirements.txt, lock files, why isolation matters
+  > Create a project with uv init, add requests, run a script that fetches a URL
+- Editor setup :: VS Code, Python extension, Pylance, selecting interpreter, integrated terminal
+- Debugger :: breakpoints, step over / into / out, watch variables, conditional breakpoints
+  > Write a loop with an off-by-one bug and find it only using the debugger
+- Code style :: PEP 8 naming, Ruff for lint + format, if __name__ == "__main__" and why it exists
+
+## Core syntax and data types | Week 1
+- Variables and dynamic typing :: names are references, id(), is vs ==, type(), isinstance()
+- Numbers :: int (unbounded), float precision (0.1 + 0.2), round(), Decimal for money, math module basics
+- Booleans and None :: truthiness rules (empty containers, 0, "", None are falsy), None checks with is
+- Operators :: arithmetic, comparison chaining (1 < x < 5), logical short-circuit, membership (in), walrus :=
+- Strings: basics :: indexing, negative indexing, slicing [a:b:step], immutability, escape chars, raw strings, multi-line strings
+- String methods :: split, join, strip, replace, find/index, startswith/endswith, upper/lower/title, isdigit/isalpha, count, zfill
+- f-strings and formatting :: {x:.2f}, {x:>10}, {x:,}, {x!r}, {x=} debugging
+- Input and output :: input(), type conversion, print(sep=, end=)
+  > Temperature converter (C to F and back) with input validation
+  > Reverse a string three ways (slicing, loop, reversed + join)
+  > Palindrome check ignoring case, spaces and punctuation
+  > Count vowels, consonants, digits and spaces in a sentence
+  > Print a formatted invoice line: item, qty, price, total aligned in columns
+
+## Control flow | Week 1
+- Conditionals :: if / elif / else, nested conditions, ternary expression (a if cond else b)
+- Pattern matching :: match-case with literals, OR patterns, guards, capture patterns, matching dicts/tuples
+- Loops :: for over sequences, range(start, stop, step), while, break, continue, for-else / while-else
+- Looping helpers :: enumerate, zip, reversed, sorted, any, all, sum, min/max with key
+  > FizzBuzz, then FizzBuzz with a configurable rules dict
+  > Prime check, then all primes up to N (Sieve of Eratosthenes)
+  > Fibonacci iteratively, first N terms and Nth term
+  > Five star/number pyramid patterns (right triangle, inverted, pyramid, diamond, Floyd's)
+  > Guess-the-number game with attempt counter
+  > Sum of digits, reverse a number, Armstrong number, GCD/LCM
+  > Menu calculator using match-case
+
+## Collections and complexity | Week 2
+- list :: append, extend, insert, pop, remove, index, count, sort vs sorted, key=, reverse, slicing copies
+- Copying :: aliasing, shallow copy (list(), [:], copy()), deep copy (copy.deepcopy), the [[0]*3]*3 trap
+- tuple :: immutability, packing / unpacking, starred unpacking (first, *rest), swapping, tuples as dict keys
+- dict :: get, setdefault, keys/values/items, update, pop, | merge, insertion order, dict from zip
+- set :: add, discard, union, intersection, difference, symmetric difference, frozenset, O(1) membership
+- collections module :: Counter (most_common), defaultdict, deque (appendleft, popleft, maxlen), namedtuple, OrderedDict (move_to_end)
+- Comprehensions :: list / dict / set comprehensions, with conditions, nested, generator expressions
+- Time complexity of built-ins :: list append O(1), insert(0) O(n), x in list O(n) vs x in set O(1), dict ops O(1) average, sort O(n log n)
+  > Word frequency counter for a paragraph (dict, then Counter)
+  > Remove duplicates from a list while preserving order
+  > Group anagrams using defaultdict(list)
+  > Merge two dicts summing values for common keys
+  > Transpose a matrix with a comprehension
+  > Common elements of three lists
+  > Phonebook CLI: add, search, update, delete contacts
+
+## Functions | Week 2 to 3
+- Defining functions :: def, return, returning multiple values (tuple), None return, docstrings
+- Arguments :: positional vs keyword, defaults, mutable default argument pitfall and the None fix
+- Flexible signatures :: *args, **kwargs, keyword-only (after *), positional-only (before /), unpacking into calls
+- Scope :: LEGB rule, global, nonlocal, why globals hurt testability
+- Functions as values :: first-class functions, passing functions, lambda, map / filter / functools.reduce, sorted(key=)
+- Closures :: capturing variables, late binding in loops
+- Recursion :: base case, recursive case, call stack, recursion limit, when to prefer iteration
+- Function type hints :: parameter and return annotations
+  > Recursive factorial, power(x, n), sum of list, binary representation
+  > stats(*scores) returning min, max, mean, median
+  > make_counter() closure that increments on each call
+  > Sort a list of employee dicts by department, then salary descending
+  > Flatten an arbitrarily nested list recursively
+
+## Files, errors, modules and the standard library | Week 3
+- File I/O :: open modes (r, w, a, rb), with statement, reading line by line, encoding="utf-8", pathlib.Path
+- CSV and JSON :: csv.reader / DictReader / DictWriter, json.load / dump / loads / dumps, indent, handling bad JSON
+- Exceptions :: try / except / else / finally, catching specific exceptions, raise, re-raise, raise ... from
+- Custom exceptions :: exception class hierarchy for an app, meaningful messages
+- Modules and packages :: import styles, __init__.py, relative imports, sys.path, circular import problems
+- Standard library tour :: os, sys, datetime and timezones, time, random, math, itertools, functools, re, argparse, logging, uuid, hashlib
+- Regular expressions :: match / search / findall / sub, groups, named groups, greedy vs lazy, compile
+- Logging :: levels, basicConfig, handlers, formatters, logging instead of print
+  > Log file parser: count ERROR lines per hour and print the worst hour
+  > CSV to JSON converter with a CLI (input and output paths)
+  > Validate emails and Indian phone numbers with regex
+  > argparse CLI that prints file stats (lines, words, largest line)
+  > Configure a rotating file logger
+
+!! Mini project 1: Expense tracker CLI | Uses: core syntax, control flow, collections, functions, files, errors, argparse, logging
+* Subcommands: add, list, delete, summary (argparse)
+* Store expenses in a JSON file with ids and dates
+* Monthly summary by category using Counter / defaultdict
+* Custom exceptions for invalid input, logging to a file
+* Export a month to CSV
+* Push to GitHub with a clear README
+
+## Object-oriented programming in Python | Week 4 to 5
+- Classes and objects :: class, __init__, self, instance vs class attributes, object identity
+- Method types :: instance methods, @classmethod (alternate constructors like from_dict), @staticmethod (utility that belongs to the class)
+- Encapsulation :: _protected convention, __private name mangling, @property getter / setter / deleter for validation
+- Inheritance :: base and derived classes, super(), overriding, method resolution order (MRO), multiple inheritance, mixins
+- Polymorphism and duck typing :: same method name, different behaviour; "if it walks like a duck"
+- Dunder methods :: __str__, __repr__, __eq__, __hash__, __lt__ (total_ordering), __len__, __getitem__, __iter__, __contains__, __call__, __enter__ / __exit__, __add__
+- dataclasses :: @dataclass, field(default_factory=), frozen=True, order=True, __post_init__ validation, slots=True
+- Enum :: Enum, IntEnum, StrEnum, auto(), iterating members, value vs name. Use when a value can only be one of a fixed set (status, role, type) to replace magic strings
+- Interfaces: ABC and Protocol :: abc.ABC with @abstractmethod vs typing.Protocol (structural). Use when several classes must fulfil the same contract in different ways
+- Composition over inheritance :: has-a vs is-a, delegating to collaborators
+- SOLID principles :: single responsibility, open/closed, Liskov, interface segregation, dependency inversion, each with a Python example
+  > BankAccount with deposit / withdraw, @property balance, InsufficientFunds exception
+  > Shape ABC with Circle, Rectangle, Triangle computing area and perimeter
+  > Vector class with +, -, *, ==, abs(), repr via dunder methods
+  > OrderStatus Enum state machine that rejects invalid transitions
+  > PaymentProvider Protocol with StripeProvider and RazorpayProvider fakes
+  > Inventory of Product dataclasses sorted by price and filtered by stock
+
+## Design patterns and low-level design | Week 5 to 6
+- Creational patterns :: Factory / Factory method, Builder, Singleton (and why a module-level instance is usually enough)
+- Structural patterns :: Adapter, Facade, Decorator, Proxy
+- Behavioral patterns :: Strategy, Observer / pub-sub, Command, Template Method, Chain of Responsibility, State
+- Data access patterns :: Repository, Unit of Work, Dependency Injection via constructor
+- LLD interview method :: requirements, entities, relationships, class diagram, APIs, then code; extensibility questions
+  > Notification service: Strategy (email / SMS / Slack) chosen by a Factory
+  > Adapter that wraps two different weather API response shapes into one interface
+  > In-process event bus using Observer
+  > @retry decorator with exponential backoff and max attempts
+  > Middleware pipeline using Chain of Responsibility (auth, rate limit, logging)
+
+!! Mini project 2: Low-level design set | Uses: OOP, Enum, ABC/Protocol, dataclasses, design patterns
+* Parking lot: vehicle and slot types as Enums, pricing as Strategy, class diagram first
+* Elevator system with State pattern
+* Vending machine with State and Enum for coins
+* Splitwise-style expense sharing with balances simplification
+* pytest tests for each core flow
+
+## Pythonic and advanced features | Week 6 to 7
+- Iterators :: iterable vs iterator, __iter__ / __next__, StopIteration, iter() with sentinel
+- Generators :: yield, generator expressions, yield from, lazy pipelines, memory benefits
+- Decorators :: wrapping functions, decorators with arguments, functools.wraps, class decorators, stacking order, functools.lru_cache / cache
+- Context managers :: class-based (__enter__/__exit__), contextlib.contextmanager, suppress, ExitStack
+- itertools :: chain, islice, groupby, product, permutations, combinations, accumulate, count, cycle, pairwise, batched
+- functools :: partial, reduce, cache, cached_property, singledispatch, total_ordering
+- Advanced typing :: Optional, X | Y, list[int], dict[str, T], TypedDict, Literal, Callable, TypeVar, Generic, Protocol, mypy basics
+- Memory model :: references, mutability, reference counting, garbage collection, __slots__
+- Concurrency landscape :: the GIL; threads for I/O, processes for CPU, asyncio for many concurrent I/O tasks
+  > Generator that reads a large file in chunks and yields parsed records
+  > @timer and @cache_with_ttl decorators
+  > Context manager that times a block and logs the duration
+  > Run mypy --strict on mini project 1 and fix every error
+
+## Concurrency | Week 7
+- Threading :: threading.Thread, ThreadPoolExecutor, locks, race conditions, thread-safe queues
+- Multiprocessing :: ProcessPoolExecutor, pickling constraints, when it beats threads
+- asyncio fundamentals :: event loop, async def, await, tasks, asyncio.gather, create_task, timeouts
+- asyncio in practice :: Semaphore for concurrency limits, httpx.AsyncClient, async context managers, async generators, avoiding blocking calls
+  > Download 50 URLs sequentially, with threads, and with asyncio; compare times
+  > Async API caller with concurrency limit 5, timeouts and retries
+  > CPU-heavy task (prime counting) with processes vs threads; explain the result
+
+## Testing and code quality | Week 8
+- pytest basics :: test discovery, assertions, pytest.raises, running subsets, -k and -x flags
+- Fixtures :: scopes, conftest.py, tmp_path, yield fixtures for setup/teardown
+- Parametrize and markers :: @pytest.mark.parametrize, skip, xfail, custom markers
+- Mocking :: unittest.mock, patch, MagicMock, side_effect, mocking HTTP with respx or responses, freezing time
+- Coverage and TDD :: pytest-cov, red-green-refactor loop, what not to test
+- Quality gates :: pre-commit hooks, ruff, mypy, running them in CI
+  > Bring mini project 1 to 85%+ test coverage
+  > TDD a string calculator kata from scratch
+  > Test a function that calls an external API using mocks only
+
+## Web APIs with FastAPI | Week 9 to 10
+- HTTP fundamentals :: methods, status codes (200, 201, 204, 400, 401, 403, 404, 409, 422, 429, 500), headers, REST resource naming, idempotency
+- FastAPI basics :: app, path and query parameters, request bodies, automatic docs at /docs
+- Pydantic v2 :: BaseModel, Field constraints, validators, nested models, model_dump, response_model
+- Dependency injection :: Depends, reusable dependencies (db session, current user)
+- Structure :: APIRouter, project layout, settings with pydantic-settings and .env
+- Middleware and CORS :: request logging, timing, CORS config
+- Authentication :: API keys, OAuth2 password flow, JWT access tokens, password hashing (bcrypt/argon2), role checks
+- Advanced endpoints :: background tasks, file uploads, streaming responses and Server-Sent Events, WebSockets basics
+- API hygiene :: pagination (limit/offset and cursor), filtering, consistent error responses, versioning
+  > CRUD Todo API with validation and proper status codes
+  > JWT login plus protected routes and an admin-only route
+  > File upload endpoint that validates type and size
+  > SSE endpoint that streams progress messages
+
+## Databases from Python | Week 10 to 11
+- Drivers :: psycopg (Postgres), parameterized queries, SQL injection, connection pooling
+- SQLAlchemy 2.0 :: engine, session, declarative models, relationships, select() queries, eager vs lazy loading, the N+1 problem
+- Migrations :: Alembic init, autogenerate, upgrade / downgrade
+- Transactions :: commit / rollback, isolation, handling IntegrityError
+- Redis :: redis-py, get/set with TTL, caching pattern, simple rate limiter with INCR + EXPIRE
+  > Add Postgres + SQLAlchemy + Alembic to the Todo API
+  > Cache an expensive endpoint in Redis and measure the speedup
+  > Reproduce and fix an N+1 query
+
+## Data handling and integrations | Week 11 to 12
+- HTTP clients :: requests / httpx sessions, timeouts, retries with backoff, auth headers, paginating through APIs, rate limit handling
+- pandas essentials :: read_csv / read_json / read_sql, selecting and filtering, groupby + agg, merge / join, pivot_table, missing values, dtypes, apply vs vectorized ops
+- Data cleaning patterns :: deduplication, normalizing names and phone numbers, parsing messy dates, detecting bad rows, validating with Pydantic
+- Nested JSON :: json_normalize, flattening, handling optional fields
+- File formats :: CSV, JSON lines, Parquet, Excel with openpyxl
+  > Pull a paginated public API into pandas and produce a summary report
+  > Clean a deliberately messy customer CSV (duplicates, bad dates, mixed formats) and log rejected rows
+  > Join two datasets on fuzzy company names and report match quality
+
+!! Project A: Customer data integration service | Uses: FastAPI, Pydantic, SQLAlchemy, asyncio, pandas, pytest, Redis
+* Ingest from three sources: CSV upload, an external REST API (async, paginated), and a Postgres table
+* Normalize and validate into one schema; store rejected rows with reasons
+* Query endpoints for the unified data, with pagination and filters; Redis cache
+* pytest suite with mocks, 80%+ coverage, Dockerfile and docker compose
+* README with architecture diagram and decisions; later deployed in the GCP roadmap
+`});
+ROADMAPS.push({key:"dsa", name:"DSA", title:"Data structures and algorithms", sub:"Pattern by pattern, in Python. Give each problem 20 to 25 minutes; if stuck, study the solution and re-solve it from scratch two days later. Log every miss.", text:String.raw`
+## Foundations | Week 1
+- Big-O notation :: time vs space, best / average / worst case, dropping constants, amortized analysis
+- Analyzing code :: single loops, nested loops, halving loops (log n), recursion trees, O(1) to O(n!) ladder
+- Constraints to complexity :: n up to 10 needs n!, up to 20 needs 2^n, up to 10^3 needs n^2, up to 10^5 needs n log n, up to 10^8 needs n
+- Python for DSA :: list as stack, collections.deque as queue, heapq (min-heap, negate for max), bisect, Counter, defaultdict, sorted with key tuples, float("inf"), sys.setrecursionlimit
+- Problem-solving routine :: restate, clarify inputs and edge cases, examples, brute force, optimize, code, dry-run, state complexity
+- Recursion refresher :: base case, trust the recursion, memoization preview
+  > Write and explain the complexity of 10 small functions (loops, nested, halving, recursive)
+  > Implement stack, queue and min-heap usage snippets from memory
+
+## Arrays and hashing | Week 1 to 2
+- Array traversal and in-place updates :: index tricks, swapping, reversing ranges
+- Hash maps for lookup and counting :: complement lookup, frequency maps, seen-sets
+- Prefix sums :: running totals, range sum queries, prefix sum + hashmap for subarray counts
+  > Contains Duplicate
+  > Valid Anagram
+  > Two Sum
+  > Group Anagrams
+  > Top K Frequent Elements (bucket sort)
+  > Product of Array Except Self
+  > Valid Sudoku
+  > Encode and Decode Strings
+  > Longest Consecutive Sequence
+  > Subarray Sum Equals K
+  > Majority Element
+  > Range Sum Query - Immutable
+
+## Two pointers | Week 2
+- Opposite-end pointers :: sorted arrays, palindromes, pair sums
+- Same-direction pointers :: fast/slow write index, partitioning
+- Sort first, then two pointers :: 3Sum style problems, skipping duplicates
+  > Valid Palindrome
+  > Two Sum II - Input Array Is Sorted
+  > 3Sum
+  > Container With Most Water
+  > Trapping Rain Water
+  > Move Zeroes
+  > Remove Duplicates from Sorted Array
+  > Sort Colors (Dutch national flag)
+  > Squares of a Sorted Array
+
+## Sliding window | Week 3
+- Fixed-size window :: add right, remove left, track best
+- Variable-size window :: expand right, shrink left while invalid, window state in a dict
+- Monotonic deque window :: max / min in a window
+  > Best Time to Buy and Sell Stock
+  > Maximum Average Subarray I
+  > Longest Substring Without Repeating Characters
+  > Longest Repeating Character Replacement
+  > Permutation in String
+  > Fruit Into Baskets
+  > Minimum Size Subarray Sum
+  > Minimum Window Substring
+  > Sliding Window Maximum
+
+## Stack | Week 3 to 4
+- Stack basics :: LIFO, matching pairs, undo-style problems
+- Monotonic stack :: next greater / smaller element, span problems
+- Stack for expression evaluation :: RPN, basic calculator ideas
+  > Valid Parentheses
+  > Min Stack
+  > Evaluate Reverse Polish Notation
+  > Generate Parentheses
+  > Daily Temperatures
+  > Next Greater Element I
+  > Car Fleet
+  > Asteroid Collision
+  > Decode String
+  > Largest Rectangle in Histogram
+
+## Binary search | Week 4 to 5
+- Classic template :: lo / hi / mid, loop condition, avoiding infinite loops, bisect_left / bisect_right
+- Boundary search :: first true / last true, first and last position
+- Search on rotated or 2D data :: deciding which half is sorted
+- Binary search on the answer :: minimize the max, feasibility function
+  > Binary Search
+  > Search Insert Position
+  > Find First and Last Position of Element in Sorted Array
+  > Search a 2D Matrix
+  > Koko Eating Bananas
+  > Find Minimum in Rotated Sorted Array
+  > Search in Rotated Sorted Array
+  > Time Based Key-Value Store
+  > Capacity To Ship Packages Within D Days
+  > Median of Two Sorted Arrays
+
+## Linked lists | Week 5 to 6
+- Node class and traversal :: building lists for local testing, printing helper
+- Dummy head technique :: simplifies insert/delete at head
+- Fast and slow pointers :: middle node, cycle detection (Floyd), cycle start
+- Reversal :: iterative and recursive, reversing a sub-range
+  > Reverse Linked List
+  > Merge Two Sorted Lists
+  > Linked List Cycle
+  > Middle of the Linked List
+  > Reorder List
+  > Remove Nth Node From End of List
+  > Copy List with Random Pointer
+  > Add Two Numbers
+  > Find the Duplicate Number
+  > LRU Cache (hashmap + doubly linked list, and OrderedDict version)
+  > Merge k Sorted Lists
+  > Reverse Nodes in k-Group
+
+## Trees | Week 6 to 7
+- Tree vocabulary :: root, leaf, height, depth, balanced, complete, full
+- DFS traversals :: preorder, inorder, postorder, recursive and iterative with a stack
+- BFS :: level order with a deque, level by level processing
+- Binary search trees :: BST property, search / insert / delete, inorder gives sorted order
+- Return-value patterns :: returning tuples up the recursion (height + diameter, etc.)
+  > Invert Binary Tree
+  > Maximum Depth of Binary Tree
+  > Diameter of Binary Tree
+  > Balanced Binary Tree
+  > Same Tree
+  > Subtree of Another Tree
+  > Lowest Common Ancestor of a BST
+  > Binary Tree Level Order Traversal
+  > Binary Tree Right Side View
+  > Count Good Nodes in Binary Tree
+  > Validate Binary Search Tree
+  > Kth Smallest Element in a BST
+  > Construct Binary Tree from Preorder and Inorder Traversal
+  > Lowest Common Ancestor of a Binary Tree
+  > Binary Tree Maximum Path Sum
+  > Serialize and Deserialize Binary Tree
+
+## Tries | Week 7
+- Trie structure :: children dict, end-of-word flag, insert / search / startsWith complexity
+- Trie + DFS :: wildcard search, board search with pruning
+  > Implement Trie (Prefix Tree)
+  > Design Add and Search Words Data Structure
+  > Word Search II
+
+## Heaps and priority queues | Week 8
+- heapq API :: heappush, heappop, heapify, nlargest / nsmallest, tuples for priority
+- Top K pattern :: size-k heap
+- Two heaps :: running median
+- Scheduling with heaps :: greedy + heap
+  > Kth Largest Element in a Stream
+  > Last Stone Weight
+  > K Closest Points to Origin
+  > Kth Largest Element in an Array (heap and quickselect)
+  > Task Scheduler
+  > Design Twitter
+  > Find Median from Data Stream
+
+## Backtracking | Week 8 to 9
+- Backtracking template :: choose, explore, un-choose; path and result lists; copying the path
+- Subsets vs permutations vs combinations :: what changes in the template
+- Pruning and duplicates :: sorting and skipping equal neighbours
+  > Subsets
+  > Subsets II
+  > Combination Sum
+  > Combination Sum II
+  > Permutations
+  > Letter Combinations of a Phone Number
+  > Word Search
+  > Palindrome Partitioning
+  > N-Queens
+
+## Graphs | Week 9 to 10
+- Representations :: adjacency list (dict of lists), adjacency matrix, edge list, grids as implicit graphs
+- DFS and BFS on graphs :: visited sets, iterative vs recursive, connected components
+- Grid problems :: 4 / 8 directions, bounds checks, marking visited in place
+- Multi-source BFS and shortest path in unweighted graphs
+- Topological sort :: Kahn's algorithm (in-degree) and DFS-based, cycle detection in directed graphs
+- Union-Find :: find with path compression, union by rank, detecting cycles in undirected graphs
+  > Number of Islands
+  > Max Area of Island
+  > Clone Graph
+  > Flood Fill
+  > Rotting Oranges
+  > Pacific Atlantic Water Flow
+  > Surrounded Regions
+  > Course Schedule
+  > Course Schedule II
+  > Number of Connected Components in an Undirected Graph
+  > Graph Valid Tree
+  > Redundant Connection
+  > Word Ladder
+
+## Advanced graphs | Week 11
+- Dijkstra :: heap-based, why no negative edges, reconstructing paths
+- Bellman-Ford basics :: k-edge constraints, negative edges
+- Minimum spanning tree :: Prim (heap) and Kruskal (sort + union-find)
+- Graph modelling :: turning a word/state problem into a graph
+  > Network Delay Time
+  > Path With Minimum Effort
+  > Min Cost to Connect All Points
+  > Cheapest Flights Within K Stops
+  > Swim in Rising Water
+  > Reconstruct Itinerary
+  > Alien Dictionary
+
+## Dynamic programming: 1D | Week 12 to 13
+- DP thinking :: state, transition, base case, answer location; top-down memo (lru_cache) vs bottom-up table; space optimization
+- Linear DP patterns :: take / skip, best ending here, counting ways
+  > Climbing Stairs
+  > Min Cost Climbing Stairs
+  > House Robber
+  > House Robber II
+  > Longest Palindromic Substring
+  > Palindromic Substrings
+  > Decode Ways
+  > Coin Change
+  > Maximum Product Subarray
+  > Word Break
+  > Longest Increasing Subsequence
+  > Partition Equal Subset Sum
+
+## Dynamic programming: 2D and knapsack | Week 13 to 14
+- Grid DP :: paths, obstacles, min path sum
+- Two-string DP :: LCS family, edit distance table
+- Knapsack family :: 0/1 knapsack, unbounded knapsack, target sum as subset counting
+- State machine DP :: stock problems with cooldown / fees
+  > Unique Paths
+  > Minimum Path Sum
+  > Longest Common Subsequence
+  > Best Time to Buy and Sell Stock with Cooldown
+  > Coin Change II
+  > Target Sum
+  > Interleaving String
+  > Longest Increasing Path in a Matrix
+  > Edit Distance
+  > Distinct Subsequences
+
+## Greedy and intervals | Week 15
+- Greedy reasoning :: locally optimal choice, exchange argument, when greedy fails
+- Kadane's algorithm :: max subarray and variants
+- Interval patterns :: sort by start, merge overlaps, sort by end to maximize non-overlapping, sweep line with heap
+  > Maximum Subarray
+  > Jump Game
+  > Jump Game II
+  > Gas Station
+  > Hand of Straights
+  > Partition Labels
+  > Valid Parenthesis String
+  > Insert Interval
+  > Merge Intervals
+  > Non-overlapping Intervals
+  > Meeting Rooms
+  > Meeting Rooms II
+  > Minimum Number of Arrows to Burst Balloons
+
+## Math, matrices and bit manipulation | Week 16
+- Matrix manipulation :: rotation by transpose + reverse, spiral traversal, in-place markers
+- Bit tricks :: AND, OR, XOR properties, x & (x - 1), shifting, masks
+- Math helpers :: modulo arithmetic, fast power, digit manipulation
+  > Rotate Image
+  > Spiral Matrix
+  > Set Matrix Zeroes
+  > Happy Number
+  > Plus One
+  > Pow(x, n)
+  > Single Number
+  > Number of 1 Bits
+  > Counting Bits
+  > Missing Number
+  > Reverse Bits
+
+## Practical coding rounds (FDE style) | Week 17 to 18
+- What these rounds test :: clean, working, extensible code under time pressure, incremental requirements, communication; less about tricks
+- Approach :: clarify, design the data model, write the simplest correct version, then extend; name things well; test as you go
+  > Log analyzer: parse server logs, report top endpoints, error rates per minute, p95 latency
+  > In-memory key-value store with TTL, then add transactions (begin / commit / rollback)
+  > Rate limiter class: fixed window, then sliding window, then per-user token bucket
+  > Bank system in levels: accounts, transfers, scheduled payments, merge accounts, history queries
+  > JSON diff tool that reports added, removed and changed paths
+  > Join two CSV files and aggregate without pandas
+  > Iterator that transparently pages through a paginated API
+  > File system simulation: mkdir, ls, write, read, du with paths
+  > Simple task scheduler with priorities and dependencies
+
+## Interview mode | Week 18 onward
+- Timed sets :: two mediums in 45 minutes, talking out loud, weekly
+- LeetCode weekly contest :: every weekend from month 4
+- Company-tagged lists :: last 6 months of problems for each target company
+- Mistakes log review :: redo every logged miss without looking
+- Mock interviews :: at least 6 with a peer or a platform before real loops
+  > Re-solve all problems in this roadmap marked hard for you, timed
+  > Complete 6 mock coding interviews and write down feedback
+`});
+ROADMAPS.push({key:"sd", name:"System design", title:"System design", sub:"Fundamentals first, then classic problems, then the enterprise, data and AI designs FDE interviews actually ask. Draw every design (Excalidraw) and write the tradeoffs.", text:String.raw`
+## SQL and relational databases | Month 2
+- Querying :: SELECT, WHERE, ORDER BY, LIMIT, DISTINCT, LIKE, IN, BETWEEN, NULL handling
+- Aggregation :: GROUP BY, HAVING, COUNT / SUM / AVG, COUNT(DISTINCT)
+- Joins :: inner, left, right, full outer, self join, cross join, anti-join with LEFT JOIN ... IS NULL
+- Subqueries and CTEs :: correlated subqueries, WITH clauses, recursive CTEs
+- Window functions :: ROW_NUMBER, RANK, DENSE_RANK, LAG / LEAD, running totals, PARTITION BY
+- Indexes :: B-tree, composite index column order, covering index, when indexes hurt, EXPLAIN / EXPLAIN ANALYZE
+- Transactions :: ACID, isolation levels (read committed, repeatable read, serializable), dirty / phantom reads, locking, deadlocks
+- Schema design :: normalization 1NF to 3NF, denormalization for reads, primary / foreign keys, constraints, soft deletes, audit columns
+- Dialect differences :: Postgres vs MySQL vs DB2 quirks you have seen (useful in customer rounds)
+  > LeetCode SQL 50 study plan
+  > Design the schema for an e-commerce app and write 10 reporting queries
+  > Take one slow query, add an index, compare EXPLAIN plans
+
+## Networking and the web | Month 2
+- Request journey :: what happens when you type a URL: DNS, TCP handshake, TLS, HTTP, server, response, rendering
+- DNS :: records (A, AAAA, CNAME, MX, TXT), TTL, resolvers
+- Transport :: TCP vs UDP, connections, keep-alive
+- HTTP versions :: HTTP/1.1, HTTP/2 multiplexing, HTTP/3 over QUIC
+- TLS :: certificates, handshake at a high level, mTLS for service-to-service
+- API styles :: REST, gRPC, GraphQL; when to use each
+- Real-time :: polling, long polling, Server-Sent Events, WebSockets
+
+## Core building blocks | Month 3
+- Scaling :: vertical vs horizontal, stateless services, sticky sessions and why to avoid them
+- Load balancers :: L4 vs L7, round robin, least connections, consistent hashing, health checks
+- Reverse proxy and API gateway :: routing, TLS termination, auth, rate limiting at the edge
+- CDN :: static assets, edge caching, cache invalidation
+- Caching :: cache-aside, read-through, write-through, write-back, TTLs, eviction (LRU / LFU), cache stampede, hot keys
+- Database choices :: relational vs key-value vs document vs wide-column vs graph vs time-series; examples of each
+- Replication :: leader-follower, multi-leader, leaderless; replication lag; read replicas
+- Partitioning / sharding :: range vs hash, consistent hashing, resharding, hot partitions
+- Queues and streams :: message queue vs pub/sub vs log (Kafka-style), consumer groups, ordering, at-least-once delivery, dead-letter queues
+- Blob / object storage :: when to store files outside the database, pre-signed URLs
+- Search :: inverted index, Elasticsearch / OpenSearch basics, when a DB LIKE is not enough
+
+## Distributed systems concepts | Month 3
+- CAP and PACELC :: what they really say, real examples
+- Consistency models :: strong, eventual, read-your-writes, monotonic reads
+- Consensus :: leader election, Raft at a high level, why ZooKeeper / etcd exist
+- Failure handling :: timeouts, retries with exponential backoff and jitter, circuit breakers, bulkheads, graceful degradation
+- Idempotency :: idempotency keys, deduplication, exactly-once is really at-least-once + idempotent
+- Rate limiting algorithms :: token bucket, leaky bucket, fixed window, sliding window log / counter
+- Distributed transactions :: two-phase commit, sagas (choreography vs orchestration), transactional outbox
+- IDs and time :: UUID vs Snowflake IDs, clock skew, ordering events
+
+## API design | Month 3
+- Resource modelling :: nouns, nesting, relationships
+- Pagination :: offset vs cursor, stable ordering
+- Versioning and compatibility :: URL vs header versioning, additive changes
+- Errors :: consistent error shape, retryable vs non-retryable
+- Enterprise auth :: API keys, OAuth2 flows (client credentials, auth code), OIDC, JWT validation, SSO with SAML, SCIM provisioning (awareness)
+- Webhooks :: signing, retries, idempotent receivers
+  > Write an OpenAPI spec for a document-processing API including webhooks
+
+## Estimation, observability and reliability | Month 4
+- Back-of-envelope estimation :: DAU to QPS, peak factor, storage per year, bandwidth; powers of two
+- Latency numbers :: memory vs SSD vs network vs cross-region orders of magnitude
+- Observability :: logs, metrics, traces; RED and USE methods; structured logging; correlation IDs
+- Reliability targets :: SLI, SLO, SLA, error budgets, alerting on symptoms
+- Operations :: deploy strategies (rolling, blue/green, canary), feature flags, rollbacks, incident response, blameless postmortems
+  > Estimate QPS and storage for three designs in this roadmap before designing them
+
+## Security and enterprise concerns | Month 4
+- Least privilege and IAM :: roles, service identities, short-lived credentials
+- Data protection :: encryption in transit and at rest, KMS, secrets management, key rotation
+- Sensitive data :: PII classification, masking, tokenization, retention, data residency, audit logging
+- Multi-tenancy :: silo (per-tenant stack), pool (shared with tenant_id), bridge; noisy neighbours; per-tenant encryption
+- Network isolation :: private networking, VPC peering, private endpoints, deploying into a customer's own cloud
+- Compliance awareness :: SOC 2, GDPR, HIPAA; what they mean for design choices
+
+## Interview framework | Month 4
+- Step 1: requirements :: functional, non-functional (scale, latency, availability, consistency), out of scope
+- Step 2: estimation :: only what drives decisions
+- Step 3: API and data model
+- Step 4: high-level design :: boxes and arrows covering every requirement
+- Step 5: deep dives :: bottlenecks, failure modes, scaling the hottest path
+- Step 6: tradeoffs and evolution :: what you would build first, what changes at 10x
+- Communication :: driving the conversation, checking in, time management for 45 minutes
+
+## Classic design problems | Month 4 to 5
+- Practice each as a timed 45-minute design, then compare with a reference solution :: note what you missed
+  > URL shortener
+  > Rate limiter (distributed)
+  > Unique ID generator
+  > Key-value store
+  > Notification system (email, SMS, push)
+  > Chat application (1:1 and group)
+  > News feed
+  > Typeahead / autocomplete
+  > Web crawler
+  > File storage and sync (Dropbox-like)
+  > Video streaming (YouTube-like)
+  > Ride sharing (Uber-like)
+  > Ticket booking with seat holds (Ticketmaster-like)
+  > Payment system with idempotency and ledger
+  > Distributed job scheduler
+  > Metrics and monitoring system
+
+## Data systems and pipelines | Month 5
+- Processing models :: batch vs streaming, micro-batch, lambda vs kappa architectures
+- ETL vs ELT :: where transformations happen, dbt at a high level
+- Storage layers :: OLTP vs OLAP, data warehouse vs data lake vs lakehouse, columnar formats (Parquet)
+- Change data capture :: log-based CDC, Debezium / Datastream, handling deletes and schema changes
+- Orchestration :: DAGs, Airflow / Cloud Composer, retries, SLAs
+- Pipeline correctness :: idempotent loads, upserts / MERGE, late-arriving data, backfills, data quality checks, lineage
+  > Design a daily pipeline from Postgres into BigQuery with CDC, quality checks and backfill support
+
+## AI and LLM system design | Month 5
+- RAG architecture :: ingestion, parsing, chunking, embeddings, vector store, retrieval, reranking, prompt assembly, citations
+- Retrieval quality :: hybrid search (BM25 + vectors), metadata filters, query rewriting, per-document access control
+- Serving concerns :: latency budgets, streaming, response and prompt caching, rate limits, model fallbacks, cost per request
+- Agents :: tool calling loops, tool design, sandboxing, human-in-the-loop approvals, limits on steps and spend
+- Evaluation in production :: offline eval sets, online feedback, regression gates, tracing
+- Safety :: prompt injection, data leakage, PII redaction, output validation
+- Choosing an approach :: prompting vs RAG vs fine-tuning; build vs buy
+  > Design a support-ticket triage assistant end to end, including evaluation and rollout
+
+## FDE-style customer design problems | Month 5 to 6
+- How these differ :: messy constraints, legacy systems, security reviews, phased delivery, measurable business outcome
+- Always cover :: stakeholders, data sources and access, MVP in week 1 vs month 3, success metrics, risks, how you would hand it over
+  > Nightly sync from a customer's on-prem IBM DB2 into BigQuery with minimal load on the source
+  > Enterprise RAG over 1M documents where users may only see documents they already have access to
+  > Deploy your product into a customer's own GCP project (single tenant) vs your SaaS; compare
+  > LLM assistant that drafts replies for a 200-agent support team using Zendesk data
+  > Near real-time fraud alerts for a bank from card transaction streams
+  > Factory IoT sensor ingestion with anomaly alerts and dashboards
+  > Migrate a monolithic on-prem Java app to GCP with zero downtime
+  > Hospital data platform with strict PII handling and audit requirements
+
+## Low-level design (object design) | Month 4 to 6
+- Method :: requirements, core entities, class diagram, key methods, patterns used, extension points
+- Tie-in :: implement these in Python (see Python roadmap, design patterns section)
+  > Parking lot
+  > Elevator system
+  > Vending machine
+  > Library management
+  > Splitwise
+  > In-memory file system
+  > Logger / logging framework
+  > LRU cache with TTL
+
+!! Design portfolio | Uses: every section above
+* Write a 2-page design doc for Project A (integration service)
+* Write a design doc for Project B (RAG assistant) including evaluation and security
+* Record yourself explaining one design in 10 minutes and review it
+* Keep all diagrams in one folder to revise before interviews
+`});
+ROADMAPS.push({key:"gcp", name:"GCP and DevOps", title:"GCP and DevOps", sub:"Linux, Git, Docker, then Google Cloud hands-on, Terraform, CI/CD, Kubernetes and observability. Every service you learn, deploy something to it with the gcloud CLI. Set a billing budget alert on day one.", text:String.raw`
+## Linux and shell | Month 1
+- Filesystem :: directory layout (/etc, /var, /home, /tmp), absolute vs relative paths, ls -la, cd, cp, mv, rm, mkdir -p, find
+- Permissions :: users, groups, rwx, chmod (numeric and symbolic), chown, sudo
+- Processes :: ps, top / htop, kill and signals, background jobs, nohup, systemd and systemctl basics, journalctl
+- Text processing :: cat, less, head, tail -f, grep (regex, -r, -i, -v), sed, awk, sort, uniq -c, wc, cut, xargs
+- Pipes and redirection :: |, >, >>, 2>&1, tee, here-docs
+- Environment :: env vars, export, PATH, .bashrc, sourcing files
+- Networking commands :: curl (headers, POST JSON), wget, dig, nslookup, ping, ss / netstat, ssh, scp, ssh keys
+- Scheduling :: cron syntax and crontab
+- Bash scripting :: variables, quoting, if / case, for / while loops, functions, arguments ($1, $@), exit codes, set -euo pipefail
+  > Backup script that archives a folder with a timestamp and deletes archives older than 7 days
+  > One-liner: top 10 IPs from an access log using awk, sort, uniq
+  > Health check script that curls a URL and exits non-zero on failure
+
+## Git and collaboration | Month 1
+- Basics :: init, clone, status, add, commit, log --oneline --graph, diff
+- Branching :: branch, switch / checkout, merge, fast-forward vs merge commits
+- Rewriting history :: rebase, interactive rebase (squash, reword), when not to rebase
+- Recovery :: stash, reset (soft / mixed / hard), revert, reflog, restore
+- Advanced :: cherry-pick, tags, bisect, submodules awareness
+- Teamwork :: remotes, fetch vs pull, pull requests, code review etiquette, resolving conflicts, .gitignore, conventional commits, trunk-based vs Git Flow
+  > Create and resolve a deliberate merge conflict
+  > Use git bisect to find the commit that broke a test
+
+## Networking for cloud | Month 1
+- IP addressing :: IPv4, private ranges, CIDR notation, subnetting (/16, /24, /28)
+- Routing and NAT :: public vs private IPs, NAT gateways, egress vs ingress
+- Firewalls :: stateful rules, allow lists, ports
+- Load balancing and TLS :: certificates, HTTPS termination
+- Hybrid connectivity :: VPN, dedicated interconnect (concepts), private service access
+  > Plan a VPC with public and private subnets for a 3-tier app on paper
+
+## Docker | Month 1 to 2
+- Concepts :: images vs containers, layers, registries, container vs VM
+- Dockerfile :: FROM, WORKDIR, COPY, RUN, ENV, EXPOSE, CMD vs ENTRYPOINT, ARG
+- Image optimization :: layer caching order, multi-stage builds, slim / distroless bases, .dockerignore
+- Running containers :: ports, env vars, volumes and bind mounts, networks, logs, exec, restart policies
+- docker compose :: multi-service apps (API + Postgres + Redis), depends_on, health checks
+- Security :: run as non-root, no secrets in images, image scanning
+  > Containerize mini project 1 and a FastAPI app
+  > docker compose for API + Postgres + Redis with a health check
+  > Shrink an image by 50%+ using multi-stage builds
+
+## GCP foundations | Month 2
+- Resource hierarchy :: organization, folders, projects, labels
+- Billing :: billing accounts, budgets and alerts, pricing calculator, free tier
+- Geography :: regions, zones, multi-region, choosing a region
+- Tooling :: Cloud Console, gcloud CLI (config, auth, projects), Cloud Shell, enabling APIs
+- IAM :: principals, basic vs predefined vs custom roles, policy inheritance, service accounts, impersonation, avoiding service account keys, least privilege
+- Audit :: Cloud Audit Logs (admin activity, data access)
+  > Create a project, budget alert, and a service account with only the roles it needs, using gcloud only
+
+## GCP compute | Month 2
+- Compute Engine :: machine families, disks, images and snapshots, startup scripts, SSH via IAP, preemptible / Spot VMs
+- Managed instance groups :: instance templates, autoscaling, autohealing, rolling updates
+- Cloud Run :: services vs jobs, revisions, traffic splitting, concurrency, min / max instances, cold starts, env vars and secrets, custom domains
+- Cloud Functions (2nd gen) :: HTTP and event triggers, when to choose over Cloud Run
+- App Engine :: awareness only, and when you would see it at a customer
+- Choosing compute :: VM vs Cloud Run vs GKE vs Functions decision table
+  > Deploy the FastAPI Todo API to Cloud Run from source, then from a container image
+  > Cloud Run job that runs a nightly data cleanup script
+
+## GCP storage and data services | Month 2 to 3
+- Cloud Storage :: buckets, storage classes, lifecycle rules, versioning, signed URLs, uniform bucket-level access
+- Cloud SQL :: Postgres instance, private IP, Cloud SQL connector / Auth Proxy, backups, read replicas, high availability
+- Other databases :: Firestore, Memorystore (Redis), Spanner, Bigtable, AlloyDB; when to pick each
+- BigQuery :: datasets, tables, loading data, standard SQL, partitioning, clustering, cost control (dry runs, bytes scanned), views, scheduled queries, federated / external tables
+- Pub/Sub :: topics, subscriptions, push vs pull, acknowledgement deadlines, retries, dead-letter topics, ordering keys
+- Event and workflow services :: Eventarc, Cloud Scheduler, Cloud Tasks, Workflows
+- Data processing :: Dataflow (Apache Beam concepts), Dataproc (awareness), Datastream for CDC, Cloud Composer (Airflow)
+  > Upload a file to Cloud Storage that triggers a function which loads it into BigQuery
+  > Pub/Sub publisher and pull subscriber in Python with a dead-letter topic
+  > Partitioned and clustered BigQuery table; compare bytes scanned before and after
+
+## GCP networking and security | Month 3
+- VPC :: custom mode VPCs, subnets, routes, firewall rules and tags, shared VPC
+- Private access :: Cloud NAT, Private Google Access, Serverless VPC Access connector, Private Service Connect
+- Load balancing :: global external HTTP(S) LB, internal LB, managed certificates, Cloud Armor
+- DNS :: Cloud DNS zones and records
+- Secrets and keys :: Secret Manager, Cloud KMS, CMEK
+- Perimeter and access :: VPC Service Controls, Identity-Aware Proxy, organization policies
+  > Cloud Run service reaching Cloud SQL over private IP only, secrets from Secret Manager
+
+## Terraform (infrastructure as code) | Month 3
+- Basics :: providers, resources, data sources, variables, outputs, locals
+- Workflow :: init, fmt, validate, plan, apply, destroy
+- State :: what state is, remote backend in GCS, locking, never editing state by hand, terraform import
+- Reuse :: modules, module inputs/outputs, public registry modules
+- Iteration :: count, for_each, dynamic blocks, conditionals
+- Environments :: workspaces vs separate directories, tfvars per environment
+- Practices :: lifecycle rules, dependency handling, least-privilege deploy account, plan in CI
+  > Terraform for: VPC, Cloud SQL, Cloud Run, Secret Manager, service account, Artifact Registry
+
+## CI/CD | Month 3
+- Concepts :: continuous integration vs delivery vs deployment, pipeline stages, artifacts
+- GitHub Actions :: workflows, triggers, jobs, steps, matrix builds, caching, secrets, environments with approvals
+- Keyless auth to GCP :: Workload Identity Federation (OIDC) instead of JSON keys
+- Google tooling :: Cloud Build triggers and cloudbuild.yaml, Artifact Registry, Cloud Deploy (awareness)
+- Pipeline design :: lint, test, build, scan, deploy to staging, smoke test, promote to prod
+- Release strategies :: rolling, blue/green, canary with Cloud Run traffic split, rollbacks
+- Quality in CI :: tests, coverage gates, dependency scanning; your Selenium / Playwright background fits here for end-to-end stages
+  > GitHub Actions pipeline for Project A: tests, image build, push to Artifact Registry, deploy to Cloud Run staging then prod
+
+!! Project A on GCP: production deployment | Uses: Docker, Cloud Run, Cloud SQL, Secret Manager, VPC, Terraform, GitHub Actions
+* All infrastructure in Terraform with a GCS remote state backend
+* Cloud Run + Cloud SQL (private IP) + Memorystore or Redis alternative + Secret Manager
+* GitHub Actions with Workload Identity Federation, staging and prod environments
+* Canary rollout using traffic splitting and a documented rollback
+* Budget alert and a cost section in the README
+
+## Kubernetes and GKE | Month 4
+- Architecture :: control plane (API server, etcd, scheduler, controllers), nodes, kubelet, kube-proxy
+- Workloads :: pods, ReplicaSets, Deployments, StatefulSets, DaemonSets, Jobs, CronJobs
+- Networking :: Services (ClusterIP, NodePort, LoadBalancer), Ingress / Gateway, DNS inside the cluster
+- Configuration :: ConfigMaps, Secrets, environment injection, volumes, PersistentVolumeClaims
+- Organization :: namespaces, labels and selectors, resource requests and limits, quotas
+- Health and scaling :: liveness, readiness and startup probes, Horizontal Pod Autoscaler, rolling updates and rollbacks
+- Tools :: kubectl (get, describe, logs, exec, apply, port-forward), Helm charts basics, Kustomize awareness
+- GKE specifics :: Autopilot vs Standard, node pools, Workload Identity, private clusters
+- Debugging :: CrashLoopBackOff, ImagePullBackOff, pending pods, OOMKilled
+  > Run Project A on GKE Autopilot with a Deployment, Service, Ingress, HPA and probes
+  > Break it on purpose (bad image, low memory) and fix each failure
+
+## Observability on GCP | Month 4
+- Cloud Logging :: structured JSON logs from Python, log explorer queries, log-based metrics, sinks to BigQuery
+- Cloud Monitoring :: metrics, dashboards, alerting policies, uptime checks, notification channels
+- Tracing and errors :: Cloud Trace, Error Reporting, OpenTelemetry instrumentation for FastAPI
+  > Dashboard and alert for Project A: error rate, p95 latency, instance count
+
+## Vertex AI and Gemini on GCP | Month 4
+- Vertex AI basics :: Model Garden, Gemini models via Vertex AI SDK, regions and quotas, pricing
+- Embeddings and vector search :: text embeddings API, Vertex AI Vector Search, or pgvector on Cloud SQL / AlloyDB
+- Managed search and agents :: Vertex AI Search, Agent Builder (awareness, when a customer would use them)
+- Security for AI :: data governance, VPC-SC around Vertex, service accounts for model access
+  > Call Gemini from a Cloud Run service with structured JSON output
+
+## Associate Cloud Engineer certification | Month 4
+- Exam guide review :: map every section of the official guide to what you have built
+- Practice :: official sample questions, two full practice tests scoring 80%+
+- Weak-area labs :: Google Cloud Skills Boost labs for any section under 80%
+  > Book the exam date
+  > Pass the Associate Cloud Engineer exam
+`});
+ROADMAPS.push({key:"ai", name:"AI engineering", title:"AI and LLM engineering", sub:"The fastest-growing part of FDE work at tier-1 companies. You already have LLM integration experience, so this roadmap turns it into production-grade skill with evaluation and deployment.", text:String.raw`
+## LLM fundamentals | Month 1
+- How LLMs work at a high level :: tokens, next-token prediction, transformer and attention intuition, pretraining vs instruction tuning vs RLHF
+- Generation parameters :: temperature, top-p, max tokens, stop sequences, determinism limits
+- Context windows :: token counting, long-context tradeoffs, cost per input vs output token
+- Embeddings :: what a vector represents, cosine similarity, dimension and cost tradeoffs
+- Limitations :: hallucination, stale knowledge, sensitivity to phrasing, non-determinism
+- Model landscape :: frontier vs small models, open-weight vs API, choosing by cost / latency / quality
+  > Count tokens for the same text across two providers and estimate the cost of 1M requests
+
+## Prompt engineering | Month 1
+- Prompt structure :: system prompt, role, task, context, constraints, output format
+- Techniques :: few-shot examples, step-by-step reasoning, XML-tagged sections, prefilling, self-critique
+- Reliability :: explicit output schemas, handling "I don't know", reducing ambiguity
+- Prompt management :: templates, versioning prompts in Git, changelogs
+  > Write a classification prompt, measure accuracy on 50 labelled examples, improve it three times
+
+## Working with model APIs | Month 2
+- SDKs :: Anthropic, OpenAI and Gemini (Vertex AI) Python SDKs, messages format, multi-turn history
+- Streaming :: token streaming to a FastAPI SSE endpoint
+- Structured output :: JSON schema, Pydantic validation, retry on invalid output
+- Tool / function calling :: defining tools, the tool-use loop, returning results, parallel tool calls
+- Multimodal :: images and PDFs as input
+- Production hygiene :: rate limits, retries with backoff, timeouts, token and cost tracking, provider fallback
+  > Invoice extractor: PDF in, validated Pydantic model out
+  > Chat endpoint with streaming and a weather tool plus a calculator tool
+
+## Retrieval-augmented generation (RAG) | Month 3
+- Ingestion :: loaders for PDF, HTML, DOCX; cleaning; preserving structure (headings, tables)
+- Chunking :: fixed size with overlap, recursive by structure, semantic chunking; chunk size experiments
+- Embeddings and vector stores :: pgvector, Chroma, Vertex AI Vector Search; indexes (HNSW), metadata
+- Retrieval :: top-k, similarity thresholds, metadata filters, hybrid search with BM25, query rewriting, multi-query
+- Reranking :: cross-encoder rerankers, when they pay off
+- Generation :: grounding instructions, citations back to sources, refusing when context is missing
+- Access control :: filtering by user permissions at retrieval time
+  > Minimal RAG over 20 PDFs with citations, no framework, plain SDK + pgvector
+  > Add hybrid search and a reranker; compare answer quality
+
+## Evaluation | Month 3 to 4
+- Why evals matter :: the difference between a demo and a product; interviewers probe this
+- Datasets :: golden question/answer sets, edge cases, adversarial cases
+- Retrieval metrics :: recall@k, precision@k, MRR
+- Answer metrics :: correctness, faithfulness / groundedness, relevance; LLM-as-judge with rubrics and its biases
+- Process :: regression evals in CI, comparing prompt or model versions, human review sampling
+- Tracing :: Langfuse, LangSmith or OpenTelemetry-based tracing of prompts, latency and cost
+  > 50-question eval set for your RAG with an automated scorecard run in CI
+
+!! Project B: Enterprise document assistant | Uses: APIs, RAG, evaluation, FastAPI, GCP
+* Ingest a realistic messy document set (policies, manuals, spreadsheets)
+* Hybrid retrieval, reranking, cited answers, per-user document permissions
+* Evaluation suite with scorecard, run on every pull request
+* Deployed on Cloud Run with Cloud SQL + pgvector (or Vertex AI Vector Search), Terraform, CI/CD
+* Simple web UI, tracing dashboard, and a README with cost per query
+
+## Agents and tool use | Month 4
+- Agent loop :: model decides, calls tool, observes, repeats; stop conditions and step limits
+- Tool design :: clear names and descriptions, narrow inputs, informative errors
+- Model Context Protocol (MCP) :: servers, clients, tools / resources / prompts; build a small MCP server
+- Patterns :: router, orchestrator-workers, evaluator-optimizer, plan-and-execute; when a simple workflow beats an agent
+- Memory and state :: conversation state, scratchpads, persistence
+- Safety :: sandboxing tool execution, human approval for risky actions, spend limits
+- Frameworks :: LangGraph, LlamaIndex, provider agent SDKs; know when plain code is better
+  > MCP server exposing a Postgres database read-only, used from an agent
+  > SQL agent that answers questions over a BigQuery dataset with a guardrail against DML
+
+## Production AI | Month 5
+- Latency and cost :: model routing (small model first), prompt caching, response caching, batching, streaming UX
+- Robustness :: fallbacks across providers, timeouts, graceful degradation
+- Security :: prompt injection (direct and indirect), data exfiltration via tools, PII redaction, output filtering
+- Governance :: logging and retention of prompts, user consent, audit trails
+- Fine-tuning awareness :: when fine-tuning is justified vs RAG or better prompting; LoRA at a concept level
+  > Red-team your Project B with 20 prompt-injection attempts and document fixes
+
+!! Project C: AI test automation agent | Uses: agents, tool use, Playwright, evaluation, CI/CD
+* Agent that reads a web app, proposes test cases, and generates Playwright tests in Python
+* Runs the tests, reads failures, and suggests fixes
+* Evaluation: how many generated tests are valid and catch seeded bugs
+* Runs in GitHub Actions against a demo app; video demo and write-up
+* This turns your QA automation background into a standout interview story
+`});
+
+// ROADMAPS.push({key:"fde", name:"FDE interview", title:"FDE interview and career", sub:"How tier-1 FDE loops work and how to prepare for each round, plus how to succeed once you are in the job. Start sections 1 to 3 early; the rest ramps up from month 4.", text:String.raw`
+// ## Understand the role | Month 1
+// - What FDEs do :: embed with customers, scope ambiguous problems, build and deploy solutions on real data, feed learnings back to product
+// - Where the roles are :: Palantir, OpenAI, Anthropic, Scale AI, Databricks, Snowflake, Google Cloud (Customer Engineer), Salesforce, AI startups; read their FDE / solutions pages
+// - Typical loop :: recruiter screen, coding (algorithmic and practical), system or solution design, decomposition / customer-scenario round, behavioral / values, sometimes a take-home or live build
+// - Adjacent titles to apply for :: Solutions Engineer, Applied AI Engineer, AI Engineer, Customer Engineer, Implementation / Integration Engineer
+//   > Collect 10 FDE job descriptions and list the skills that appear in 5 or more
+//   > Map each of those skills to a section of this handbook
+
+// ## Resume, GitHub and LinkedIn | Month 4
+// - Resume structure :: one page, summary line, experience, projects, skills; ATS-friendly formatting
+// - Impact bullets :: action + what you built + measurable result; reframe testing and automation work as engineering impact
+// - Highlight your edge :: LLM integration in production, CI/CD ownership, legacy databases (DB2), cross-team work
+// - Honesty :: experience stated as it will be when you apply (4+ years), job dates exact
+// - Projects section :: Projects A, B, C with live links, one-line outcome each
+// - GitHub :: pinned repos, clean READMEs, architecture diagrams, tests passing badges
+// - LinkedIn :: headline aimed at FDE / applied AI, featured projects, recruiter-visible open-to-work settings
+//   > Rewrite every resume bullet and get two reviews
+//   > Polish READMEs for Projects A, B and C
+
+// ## Behavioral stories | Month 4
+// - STAR method :: situation, task, action, result, plus what you learned; 2 minutes each
+// - Prepare 8 stories :: ambiguous requirement you clarified; production issue you debugged; difficult stakeholder or customer; something you learned very fast; a failure and what changed; a time you disagreed and committed; ownership beyond your role; a time you simplified something complex
+// - Motivation answers :: why FDE, why this company, why leave your current role, where you want to be in 3 years
+// - Company values :: read each target company's values and map a story to each
+//   > Write all 8 stories in a doc and rehearse them out loud
+
+// ## Decomposition and customer-scenario rounds | Month 4 to 6
+// - What is tested :: turning a vague business problem into a concrete technical plan while communicating with a non-technical stakeholder
+// - Framework :: clarify the goal and who the user is; current process and pain; data available and access; constraints (security, time, budget); options; MVP in week 1; iteration plan; success metrics; risks and mitigations; rollout and handover
+// - Habits :: ask before assuming, think out loud, quantify, write the plan on the board, summarize at the end
+// - Practice one prompt per session, 30 minutes each :: then critique yourself against the framework
+//   > A hospital wants to reduce emergency room wait times
+//   > A logistics company wants to cut late deliveries by 20%
+//   > A bank's analysts spend days reconciling spreadsheets
+//   > A manufacturer wants to predict machine failures
+//   > A retailer wants to use AI to answer supplier questions
+//   > A city wants to prioritize road repairs
+//   > An insurer wants to speed up claims processing with LLMs
+//   > A law firm wants search across 20 years of contracts
+//   > A call center wants to reduce average handling time
+//   > A government agency needs to find fraud in benefit claims
+//   > An airline wants to rebook passengers faster during disruptions
+//   > A pharma company wants to track clinical trial documents
+//   > A school district wants to identify students at risk of dropping out
+//   > A SaaS company's customers churn after onboarding
+//   > A customer says the AI product "doesn't work"; find out why and fix it
+
+// ## Communication and customer skills | Month 5
+// - Explaining technical ideas :: to executives, to engineers, to end users; analogies; avoiding jargon
+// - Writing :: design docs, status updates, incident summaries, crisp emails
+// - Demos :: tell the story, show value in the first 2 minutes, handle live failure gracefully
+// - Handling pushback :: scope negotiation, saying no with an alternative, managing expectations
+// - Discovery :: interviewing users, observing workflows, finding the real problem behind the request
+//   > Record a 5-minute demo of Project B for a non-technical audience
+//   > Write a one-page proposal for one decomposition prompt
+
+// ## Practical build and take-home rounds | Month 5
+// - Format :: 1 to 4 hour builds or live pairing on a small full-stack or data task
+// - Preparation :: a ready project template (FastAPI + tests + Docker + README skeleton), known libraries, fast environment setup
+// - Execution :: clarify scope, time-box, working end to end first, then polish; document assumptions and next steps
+//   > Do two self-set 3-hour take-homes using the template and review them
+
+// ## Mock interviews and applications | Month 5 to 8
+// - Mock schedule :: weekly mix of coding, design, decomposition and behavioral mocks with peers or platforms
+// - Application strategy :: referrals first, then direct applications; 5 to 10 targeted applications per week
+// - Tracker :: company, role, date, stage, contact, next step, notes
+// - Process :: study each company's loop, prepare questions to ask, send thank-you notes
+// - Offers :: compare total compensation, team, customers, travel expectations; negotiate politely with data
+//   > 6 coding mocks, 4 design mocks, 4 decomposition mocks, 3 behavioral mocks
+//   > Get at least 5 referrals
+
+// ## Succeeding in the job (first 90 days) | After the offer
+// - Learning fast :: reading unfamiliar codebases, asking good questions, keeping a daily log
+// - Customer trust :: reliability, clear communication, under-promise and over-deliver
+// - Debugging in customer environments :: limited access, firewalls, legacy data, reproducing issues remotely
+// - Product feedback loop :: writing field reports that help the product team
+// - Sustainability :: travel and context switching, protecting focus time, avoiding burnout
+//   > Write a 30-60-90 day plan for your first FDE role
+// `});
+(function(){
+"use strict";
+const LS_KEY = "fde-handbook-progress-v1";
+
+function hash(s){let h=5381;for(let i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))|0;}return (h>>>0).toString(36);}
+
+function parse(rm){
+  const secs=[]; let sec=null, item=null;
+  rm.text.split("\n").forEach(raw=>{
+    const line=raw.trim(); if(!line) return;
+    if(line.startsWith("## ")||line.startsWith("!! ")){
+      const isProj=line.startsWith("!!");
+      const [title,meta]=line.slice(3).split(" | ");
+      sec={type:isProj?"proj":"sec",title:title.trim(),meta:(meta||"").trim(),items:[],id:rm.key+"-s"+hash(line)};
+      secs.push(sec); item=null; return;
+    }
+    if(!sec) return;
+    if(line.startsWith("- ")){
+      const body=line.slice(2); const i=body.indexOf(" :: ");
+      item={title:i<0?body:body.slice(0,i),det:i<0?"":body.slice(i+4),practice:[],id:rm.key+"-"+hash(sec.title+"|"+body)};
+      sec.items.push(item); return;
+    }
+    if(line.startsWith("> ")){
+      const t=line.slice(2);
+      if(!item){item={title:"Practice",det:"",practice:[],id:rm.key+"-"+hash(sec.title+"|practice")};sec.items.push(item);}
+      item.practice.push({t,id:rm.key+"-p"+hash(sec.title+"|"+item.title+"|"+t)}); return;
+    }
+    if(line.startsWith("* ")){
+      const t=line.slice(2);
+      sec.items.push({title:t,det:"",practice:[],id:rm.key+"-d"+hash(sec.title+"|"+t),deliverable:true}); return;
+    }
+  });
+  return secs;
+}
+
+const data = ROADMAPS.map(rm=>({...rm,secs:parse(rm)}));
+function idsOfSec(s){const out=[];s.items.forEach(it=>{out.push(it.id);it.practice.forEach(p=>out.push(p.id));});return out;}
+function idsOfRm(rm){return rm.secs.flatMap(idsOfSec);}
+
+// ---------- state ----------
+let state={checked:{},t:0};
+try{const s=JSON.parse(localStorage.getItem(LS_KEY)||"null"); if(s&&s.checked) state=s;}catch(e){}
+let doc=null, syncMode="local", saveTimer=null, downloads=null;
+try{ if(window.claude&&window.claude.use) window.claude.use("downloads").then(d=>{downloads=d;}).catch(()=>{}); }catch(e){}
+
+function persistLocal(){try{localStorage.setItem(LS_KEY,JSON.stringify(state));}catch(e){}}
+
+// ---------- GitHub Gist sync (for self-hosted copies) ----------
+const IN_CLAUDE = !!(window.claude && window.claude.use);
+const GS_KEY="fde-handbook-gist-v1", GFILE="fde-handbook-progress.json";
+let gist=null, gistTimer=null, gistBusy=false, gistMsg="";
+try{const g=JSON.parse(localStorage.getItem(GS_KEY)||"null"); if(g&&g.token&&g.id) gist=g;}catch(e){}
+function saveGistCfg(){try{ if(gist) localStorage.setItem(GS_KEY,JSON.stringify(gist)); else localStorage.removeItem(GS_KEY);}catch(e){}}
+async function gh(token,path,opts={}){
+  const res=await fetch("https://api.github.com"+path,{cache:"no-store",...opts,headers:{"Authorization":"Bearer "+token,"Accept":"application/vnd.github+json",...(opts.body?{"Content-Type":"application/json"}:{})}});
+  if(!res.ok){const err=new Error("GitHub "+res.status); err.status=res.status; throw err;}
+  return res.json();
+}
+function gistError(e){
+  if(e&&(e.status===401||e.status===403)) return "GitHub rejected the token. Create a new one with the gist scope and connect again.";
+  if(e&&e.status===404) return "The sync gist was not found. Disconnect and connect again.";
+  return "Couldn't reach GitHub. Ticks are saved on this device and will sync when the connection is back.";
+}
+function setGistMsg(m){gistMsg=m; document.querySelectorAll("[data-gistmsg]").forEach(el=>el.textContent=m);}
+const nowTime=()=>new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
+const payload=()=>JSON.stringify({app:"fde-handbook",v:1,checked:state.checked,t:state.t});
+async function gistPush(){
+  if(!gist) return;
+  try{ await gh(gist.token,"/gists/"+gist.id,{method:"PATCH",body:JSON.stringify({files:{[GFILE]:{content:payload()}}})}); setGistMsg("Synced with GitHub at "+nowTime()); }
+  catch(e){ setGistMsg(gistError(e)); }
+}
+function scheduleGist(){ if(!gist) return; clearTimeout(gistTimer); setGistMsg("Syncing…"); gistTimer=setTimeout(gistPush,1000); }
+async function gistPull(){
+  if(!gist||gistBusy) return; gistBusy=true;
+  try{
+    const g=await gh(gist.token,"/gists/"+gist.id);
+    const f=g.files&&g.files[GFILE]; let r=null;
+    if(f){ let txt=f.content; if(f.truncated&&f.raw_url){ txt=await (await fetch(f.raw_url,{cache:"no-store"})).text(); } try{r=JSON.parse(txt);}catch(e){} }
+    if(r&&r.checked&&(r.t||0)>(state.t||0)){ state={checked:{...r.checked},t:r.t}; persistLocal(); render(); setGistMsg("Synced with GitHub at "+nowTime()); }
+    else if(!r||(state.t||0)>(r.t||0)){ await gistPush(); }
+    else setGistMsg("Synced with GitHub at "+nowTime());
+  }catch(e){ setGistMsg(gistError(e)); }
+  finally{ gistBusy=false; }
+}
+async function gistConnect(token){
+  token=(token||"").trim(); if(!token){ setGistMsg("Paste your GitHub token first."); return; }
+  setGistMsg("Connecting…");
+  try{
+    await gh(token,"/user");
+    let found=null;
+    for(let page=1;page<=5&&!found;page++){
+      const list=await gh(token,"/gists?per_page=100&page="+page);
+      found=list.find(x=>x.files&&x.files[GFILE]);
+      if(list.length<100) break;
+    }
+    if(!found){
+      found=await gh(token,"/gists",{method:"POST",body:JSON.stringify({public:false,description:"FDE handbook progress (auto-sync)",files:{[GFILE]:{content:payload()}}})});
+    }
+    gist={token,id:found.id}; saveGistCfg(); render(); await gistPull();
+  }catch(e){ gist=null; saveGistCfg(); setGistMsg(e&&e.status===401?"GitHub rejected that token. Check you copied all of it and that it has the gist scope.":gistError(e)); }
+}
+function gistDisconnect(){ gist=null; clearTimeout(gistTimer); saveGistCfg(); render(); setGistMsg("This browser is disconnected. Your progress stays on GitHub and on this device."); }
+
+function scheduleRemote(){
+  scheduleGist();
+  if(!doc) return;
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(async()=>{
+    try{await doc.set({checked:state.checked,t:state.t}); setSync("account");}
+    catch(e){ if(e&&e.code==="unavailable"){setTimeout(scheduleRemote,1500);} else {setSync("local");} }
+  },700);
+}
+function isDone(id){return !!state.checked[id];}
+function toggle(id,val){
+  if(val) state.checked[id]=1; else delete state.checked[id];
+  state.t=Date.now(); persistLocal(); scheduleRemote(); refreshCounts();
+}
+function setSync(m){syncMode=m; document.querySelectorAll(".sync").forEach(el=>el.textContent=m==="account"?"Progress saved to your account":(gist&&!IN_CLAUDE?"Progress syncs through GitHub":"Progress saved on this device"));}
+
+async function initRemote(){
+  try{
+    if(!window.claude||!window.claude.use) return;
+    const db=await window.claude.use("db"); if(!db) return;
+    doc=db.doc("progress/main");
+    const snap=await doc.get();
+    if(snap.exists){
+      const r=snap.data()||{};
+      if((r.t||0)>=(state.t||0)){state={checked:{...(r.checked||{})},t:r.t||0};persistLocal();render();}
+      else scheduleRemote();
+    } else if(Object.keys(state.checked).length){ scheduleRemote(); }
+    setSync("account");
+  }catch(e){ doc=null; setSync("local"); }
+}
+
+// ---------- rendering ----------
+const tabsEl=document.getElementById("tabs"), view=document.getElementById("view");
+let current="plan", hideDone=false;
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function pctOf(ids){if(!ids.length) return 0;return Math.round(ids.filter(isDone).length*100/ids.length);}
+
+function renderTabs(){
+  const list=[{key:"plan",name:"Plan"}].concat(data.map(r=>({key:r.key,name:r.name})));
+  tabsEl.innerHTML=list.map(t=>{
+    const p=t.key==="plan"?"":`<span class="pct" data-tabpct="${t.key}"></span>`;
+    return `<button role="tab" aria-selected="${t.key===current}" data-tab="${t.key}">${esc(t.name)}${p}</button>`;
+  }).join("");
+}
+tabsEl.addEventListener("click",e=>{const b=e.target.closest("button[data-tab]");if(!b)return;current=b.dataset.tab;render();window.scrollTo({top:0});});
+
+function itemHTML(it){
+  const pr=it.practice.length?`<div class="plabel">Practice programs</div><ul class="prac">${it.practice.map(p=>`<li data-pid="${p.id}"><label class="chk"><input type="checkbox" data-id="${p.id}" ${isDone(p.id)?"checked":""}><span class="ptxt">${esc(p.t)}</span></label></li>`).join("")}</ul>`:"";
+  return `<li class="item" data-item="${it.id}"><label class="chk"><input type="checkbox" data-id="${it.id}" ${isDone(it.id)?"checked":""}><span><span class="ttl">${esc(it.title)}</span>${it.det?`<span class="det">${esc(it.det)}</span>`:""}</span></label>${pr}</li>`;
+}
+
+function renderRoadmap(rm){
+  const firstOpen=rm.secs.findIndex(s=>s.type==="sec"&&pctOf(idsOfSec(s))<100);
+  let n=0;
+  const body=rm.secs.map((s,idx)=>{
+    if(s.type==="proj"){
+      return `<div class="proj" data-sec="${s.id}"><h4>${esc(s.title)}</h4><div class="uses">Uses: ${esc(s.meta)}</div><ul>${s.items.map(it=>`<li data-pid="${it.id}"><label class="chk"><input type="checkbox" data-id="${it.id}" ${isDone(it.id)?"checked":""}><span class="ttl">${esc(it.title)}</span></label></li>`).join("")}</ul></div>`;
+    }
+    n++;
+    return `<details class="sec" data-sec="${s.id}" ${idx===firstOpen?"open":""}><summary><span class="secno">${String(n).padStart(2,"0")}</span><span class="sectitle"><span class="chev" aria-hidden="true">›</span>${esc(s.title)}<span class="secmeta">${esc(s.meta)}</span></span><span class="secprog" data-secprog="${s.id}"></span><span class="bar minibar"><i data-secbar="${s.id}"></i></span></summary><div class="body"><ul class="items">${s.items.map(itemHTML).join("")}</ul></div></details>`;
+  }).join("");
+  view.innerHTML=`<section class="hero"><div><h2>${esc(rm.title)}</h2><div class="sub">${esc(rm.sub)}</div></div><div class="count"><span class="big" data-rmdone="${rm.key}">0</span><span class="of"> / ${idsOfRm(rm).length}</span></div><div class="bar"><i data-rmbar="${rm.key}"></i></div></section>
+  <div class="tools"><button class="tbtn" data-act="expand">Expand all</button><button class="tbtn" data-act="collapse">Collapse all</button><button class="tbtn" data-act="hide" aria-pressed="${hideDone}">Hide completed</button><span class="sync"></span></div>
+  <div class="${hideDone?"hide-done":""}" id="rmbody">${body}</div>`;
+}
+
+function syncBoxHTML(){
+  const link="https://github.com/settings/tokens/new?scopes=gist&description=FDE%20handbook%20sync";
+  if(gist){
+    return `<div class="syncbox"><h3>Sync across devices</h3><p>This browser syncs your ticks with a private gist on your GitHub account. Other browsers connected with the same token stay in step.</p>
+    <div class="tools"><button class="tbtn" data-act="gsync">Sync now</button><button class="tbtn" data-act="gdisc">Disconnect this browser</button></div>
+    <p class="gmsg" data-gistmsg role="status">${esc(gistMsg)}</p></div>`;
+  }
+  return `<div class="syncbox"><h3>Sync across devices</h3>
+  <p>Right now your ticks are saved only in this browser. To keep every device in sync, connect a GitHub token once on each device. Your progress is stored in a private gist on your own account.</p>
+  <ol><li><a href="${link}" target="_blank" rel="noopener">Create a GitHub token</a> with only the <b>gist</b> scope ticked. Pick an expiry, then copy the token.</li><li>Paste it below and connect. Use the same token on your other devices.</li></ol>
+  <div class="tools"><input id="gtoken" type="password" autocomplete="off" spellcheck="false" placeholder="ghp_…" aria-label="GitHub token"><button class="tbtn" data-act="gconn">Connect</button></div>
+  <p class="gmsg" data-gistmsg role="status">${esc(gistMsg)}</p></div>`;
+}
+
+function renderPlan(){
+  const cards=data.map(r=>`<button class="ov" data-go="${r.key}"><b>${esc(r.name)}</b><span data-ovtxt="${r.key}"></span><span class="bar"><i data-rmbar="${r.key}"></i></span></button>`).join("");
+  view.innerHTML=`<section class="hero"><div><h2>Your 6 to 8 month plan</h2><div class="sub">Roadmaps run in parallel. This table says which sections of each roadmap to finish each month. Tap a card to open that roadmap.</div></div><div class="count"><span class="big" data-alldone>0</span><span class="of">%</span></div><div class="bar"><i data-allbar></i></div></section>
+  <div class="tools"><button class="tbtn" data-act="export">Export progress</button><button class="tbtn" data-act="import">Import progress</button><span class="sync"></span></div>
+  ${IN_CLAUDE?`<p class="note" style="margin-top:8px">Using more than one device? Export your progress on one, then import the file on the other.</p>`:syncBoxHTML()}
+  <div class="overall">${cards}</div>
+  <div class="plan">
+  <h3>Month by month</h3>
+  <div class="tablewrap"><table>
+  <tr><th>Month</th><th>Python</th><th>DSA</th><th>System design</th><th>GCP and DevOps</th><th>AI engineering</th><
+    // th>FDE interview</th>
+    </tr>
+  <tr><td>1</td><td>01 to 06 + mini project 1</td><td>01 to 04</td><td>none yet</td><td>01 to 04</td><td>01 to 02</td><td>01</td></tr>
+  <tr><td>2</td><td>07 to 10 + mini project 2</td><td>05 to 07</td><td>01 to 02</td><td>05 to 07</td><td>03</td><td>none</td></tr>
+  <tr><td>3</td><td>11 to 14 + Project A</td><td>08 to 10</td><td>03 to 05</td><td>08 to 10 + Project A on GCP</td><td>04 to 05</td><td>none</td></tr>
+  <tr><td>4</td><td>Revise, LLD practice</td><td>11 to 13</td><td>06 to 09</td><td>11 to 14 (ACE exam)</td><td>Project B + 06</td><td>02 to 04, start applying</td></tr>
+  <tr><td>5</td><td>Revise</td><td>14 to 16</td><td>10 to 13 + portfolio</td><td>Revise</td><td>07 + Project C</td><td>04 to 07</td></tr>
+  <tr><td>6 to 8</td><td>Take-home template</td><td>17 to 19</td><td>Mocks, revise</td><td>Revise</td><td>Polish projects</td><td>07, interviews, 08 after offer</td></tr>
+  </table></div>
+  <h3>Weekly schedule</h3>
+  <div class="tablewrap"><table>
+  <tr><th>Day</th><th>Plan</th></tr>
+  <tr><td>Mon to Fri (4 to 5 h)</td><td>1.5 h DSA · 1.5 h Python or project · 1 h GCP or system design (alternate days) · 30 min review of mistakes log and notes</td></tr>
+  <tr><td>Saturday (10 h)</td><td>4 h project building · 2 h system design · 2 h DSA timed set · 2 h GCP hands-on labs</td></tr>
+  <tr><td>Sunday (10 h)</td><td>4 h project · 2 h AI engineering · 2 h DSA contest or mock · 1 h behavioral/decomposition · 1 h weekly review and planning</td></tr>
+  </table></div>
+  <p>From month 5, move half of project time to mock interviews. Keep one half-day per week fully off.</p>
+  <h3>Rules for using this handbook</h3>
+  <ul class="rules">
+  <li>Work each roadmap top to bottom. Tick a topic only when you can explain it and have done its practice programs without looking things up.</li>
+  <li>Build before you watch. Use one resource per topic; if a video or course runs longer than the practice, cut it.</li>
+  <li>Keep a mistakes log for DSA and a notes file per roadmap. Review them every Sunday.</li>
+  <li>Push every practice program and project to GitHub. It becomes your proof of work.</li>
+  <li>Start applying in month 4, not at the end. Early interviews are practice too.</li>
+  <li>If you fall behind, drop depth in GCP extras and DP hard problems first, never projects or mocks.</li>
+  </ul>
+  <h3>Suggested resources (one per area)</h3>
+  <ul class="rules">
+  <li>Python: official Python tutorial + "Fluent Python" for sections 07 onward; FastAPI and SQLAlchemy official docs.</li>
+  <li>DSA: NeetCode roadmap videos for each problem you get stuck on; LeetCode for practice.</li>
+  <li>System design: Alex Xu "System Design Interview" vol 1, Hello Interview guides, selected chapters of "Designing Data-Intensive Applications".</li>
+  <li>GCP: Google Cloud Skills Boost labs and the official Associate Cloud Engineer exam guide; Terraform official tutorials.</li>
+  <li>AI engineering: Anthropic, OpenAI and Google provider docs and cookbooks; build without frameworks first.</li>
+  </ul>
+  </div>`;
+}
+
+function refreshCounts(){
+  let all=[];
+  data.forEach(rm=>{
+    const ids=idsOfRm(rm); all=all.concat(ids);
+    const done=ids.filter(isDone).length, p=pctOf(ids);
+    document.querySelectorAll(`[data-tabpct="${rm.key}"]`).forEach(el=>el.textContent=p+"%");
+    document.querySelectorAll(`[data-rmbar="${rm.key}"]`).forEach(el=>el.style.width=p+"%");
+    document.querySelectorAll(`[data-rmdone="${rm.key}"]`).forEach(el=>el.textContent=done);
+    document.querySelectorAll(`[data-ovtxt="${rm.key}"]`).forEach(el=>el.textContent=`${done} of ${ids.length} · ${p}%`);
+    rm.secs.forEach(s=>{
+      const sid=idsOfSec(s), d=sid.filter(isDone).length;
+      const pe=document.querySelector(`[data-secprog="${s.id}"]`); if(pe) pe.textContent=`${d}/${sid.length}`;
+      const be=document.querySelector(`[data-secbar="${s.id}"]`); if(be) be.style.width=pctOf(sid)+"%";
+      const se=document.querySelector(`[data-sec="${s.id}"]`); if(se) se.classList.toggle("done-sec",d===sid.length);
+      s.items.forEach(it=>{
+        const li=document.querySelector(`[data-item="${it.id}"]`);
+        if(li){li.classList.toggle("all-done",[it.id,...it.practice.map(p=>p.id)].every(isDone)); li.querySelector(":scope>label").classList.toggle("checked",isDone(it.id));}
+        it.practice.forEach(p=>{const pl=document.querySelector(`[data-pid="${p.id}"]`); if(pl){pl.classList.toggle("pdone",isDone(p.id)); pl.querySelector("label").classList.toggle("checked",isDone(p.id));}});
+        const dl=document.querySelector(`.proj [data-pid="${it.id}"]`); if(dl){dl.classList.toggle("pdone",isDone(it.id)); dl.querySelector("label").classList.toggle("checked",isDone(it.id));}
+      });
+    });
+  });
+  const ap=pctOf(all);
+  const a=document.querySelector("[data-alldone]"); if(a) a.textContent=ap;
+  const ab=document.querySelector("[data-allbar]"); if(ab) ab.style.width=ap+"%";
+}
+
+function render(){
+  renderTabs();
+  if(current==="plan") renderPlan(); else renderRoadmap(data.find(r=>r.key===current));
+  setSync(syncMode); refreshCounts();
+}
+
+view.addEventListener("change",e=>{const c=e.target.closest("input[type=checkbox][data-id]"); if(c) toggle(c.dataset.id,c.checked);});
+view.addEventListener("click",e=>{
+  const go=e.target.closest("[data-go]"); if(go){current=go.dataset.go;render();window.scrollTo({top:0});return;}
+  const b=e.target.closest("[data-act]"); if(!b) return;
+  const act=b.dataset.act;
+  if(act==="expand") view.querySelectorAll("details.sec").forEach(d=>d.open=true);
+  if(act==="collapse") view.querySelectorAll("details.sec").forEach(d=>d.open=false);
+  if(act==="hide"){hideDone=!hideDone;b.setAttribute("aria-pressed",hideDone);document.getElementById("rmbody").classList.toggle("hide-done",hideDone);}
+  if(act==="export"){
+    const json=JSON.stringify({app:"fde-handbook",v:1,checked:state.checked,t:state.t});
+    const filename="fde-progress-"+new Date().toISOString().slice(0,10)+".json";
+    const plain=()=>{const blob=new Blob([json],{type:"application/json"});
+      const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=filename;
+      document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),1000);};
+    if(downloads){ downloads.save({filename,data:json}).catch(e=>{ if(e&&e.code!=="declined"&&e.code!=="rate_limited") alert("Export isn't available here. Open the downloaded handbook file to export."); }); }
+    else plain();
+  }
+  if(act==="gconn"){ const t=document.getElementById("gtoken"); gistConnect(t?t.value:""); }
+  if(act==="gsync"){ gistPull(); }
+  if(act==="gdisc"){ if(confirm("Stop syncing in this browser? Your progress stays on GitHub.")) gistDisconnect(); }
+  if(act==="import"){
+    const inp=document.createElement("input"); inp.type="file"; inp.accept=".json,application/json";
+    inp.onchange=()=>{const f=inp.files&&inp.files[0]; if(!f) return;
+      f.text().then(txt=>{
+        let d; try{d=JSON.parse(txt);}catch(e){alert("That file isn't a progress export. Choose a file named fde-progress-….json.");return;}
+        if(!d||typeof d.checked!=="object"){alert("That file isn't a progress export. Choose a file named fde-progress-….json.");return;}
+        const n=Object.keys(d.checked).length;
+        if(!confirm("Replace your current progress with the "+n+" ticked items in this file?")) return;
+        state={checked:{...d.checked},t:Date.now()}; persistLocal(); scheduleRemote(); render();
+      });
+    };
+    inp.click();
+  }
+});
+
+view.addEventListener("keydown",e=>{ if(e.key==="Enter"&&e.target.id==="gtoken"){ gistConnect(e.target.value); } });
+
+render();
+initRemote();
+if(!IN_CLAUDE){
+  if(gist) gistPull();
+  document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible") gistPull(); });
+  window.addEventListener("focus",()=>gistPull());
+  setInterval(()=>{ if(document.visibilityState==="visible") gistPull(); },60000);
+}
+})();
+</script>
+</body></html>
