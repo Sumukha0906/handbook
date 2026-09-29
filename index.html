@@ -110,6 +110,48 @@ footer{color:var(--muted);font-size:13px;margin-top:40px}
 .syncbox a{color:var(--green);font-weight:600}
 .syncbox input{font:inherit;font-size:14px;flex:1 1 220px;min-width:0;padding:6px 10px;border:1px solid var(--rule);border-radius:8px;background:var(--bg);color:var(--ink)}
 .gmsg{color:var(--muted);font-size:13.5px;min-height:1.2em}
+/* notes */
+.nmsg{font-size:13px;color:var(--muted);margin-left:auto}
+.notes{display:grid;grid-template-columns:260px minmax(0,1fr);gap:16px;margin-top:10px;align-items:start}
+.nlist{position:sticky;top:64px;max-height:calc(100vh - 80px);overflow:auto;border-right:1px solid var(--rule);padding-right:12px}
+.nlist input{width:100%;font:inherit;font-size:14px;padding:7px 10px;border:1px solid var(--rule);border-radius:8px;background:var(--surface);color:var(--ink);margin-bottom:8px}
+.nitem{display:block;width:100%;text-align:left;font:inherit;color:inherit;background:none;border:0;border-bottom:1px solid var(--rule);padding:10px 8px;cursor:pointer;border-radius:6px}
+.nitem b{display:block;font-family:var(--cond);font-size:16px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nitem span{display:block;color:var(--muted);font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nitem time{display:block;font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:2px}
+.nitem[aria-current="true"]{background:var(--green-soft)}
+.nitem:focus-visible,.ntitle:focus-visible,#nbody:focus-visible,.nlist input:focus-visible{outline:2px solid var(--amber);outline-offset:1px}
+.nempty{color:var(--muted);font-size:14.5px;padding:8px 0}
+.ntitle{width:100%;font-family:var(--cond);font-weight:700;font-size:26px;border:0;border-bottom:1px solid var(--rule);background:transparent;color:var(--ink);padding:6px 0}
+.nmeta{font-family:var(--mono);font-size:12px;color:var(--muted);margin-left:auto}
+#nbody{width:100%;min-height:60vh;font-family:var(--mono);font-size:14px;line-height:1.6;border:1px solid var(--rule);border-radius:10px;background:var(--surface);color:var(--ink);padding:14px;resize:vertical;tab-size:4}
+.md{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:6px 18px 14px;min-height:40vh;overflow-wrap:anywhere}
+.md h1,.md h2,.md h3,.md h4{font-family:var(--cond);line-height:1.2;margin:18px 0 6px}
+.md code{font-family:var(--mono);font-size:.9em;background:var(--track);padding:1px 5px;border-radius:4px}
+.md pre{background:var(--bg);border:1px solid var(--rule);border-radius:8px;padding:12px;overflow:auto}
+.md pre code{background:none;padding:0;font-size:13.5px}
+.md blockquote{margin:8px 0;padding:2px 12px;border-left:3px solid var(--amber);color:var(--muted)}
+.md a{color:var(--green)}
+.md li.task{list-style:none;margin-left:-20px}
+.md hr{border:0;border-top:1px solid var(--rule)}
+.mdtable{overflow-x:auto}.mdtable table{min-width:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 4px}
+.chip{font:inherit;font-size:14px;border:1px solid var(--rule);background:var(--surface);color:var(--ink);padding:5px 12px;border-radius:999px;cursor:pointer;display:flex;gap:6px;align-items:center}
+.chip span,.seg span{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip[aria-pressed="true"] span,.seg button[aria-pressed="true"] span{color:inherit;opacity:.75}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:10px;overflow:hidden;margin:16px 0 2px;background:var(--surface)}
+.seg button{font:inherit;font-family:var(--cond);font-weight:600;font-size:15px;border:0;background:none;color:var(--muted);padding:7px 14px;cursor:pointer;display:flex;gap:6px;align-items:center}
+.seg button+button{border-left:1px solid var(--rule)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.chip:focus-visible,.seg button:focus-visible,.nsel select:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.ngroup{font-family:var(--cond);font-weight:600;font-size:13px;color:var(--green);padding:12px 8px 2px}
+.ntag{display:inline-block;font-style:normal;font-size:11.5px;color:var(--green);margin-top:2px}
+.nfile{display:flex;flex-wrap:wrap;gap:8px 14px;margin:10px 0 2px}
+.nsel{font-size:13px;color:var(--muted);display:flex;gap:6px;align-items:center;min-width:0;max-width:100%}
+.nsel select{font:inherit;font-size:14px;color:var(--ink);background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:4px 8px;max-width:100%;min-width:0}
+.secnotes{margin-top:10px}
+@media (max-width:760px){.notes{grid-template-columns:minmax(0,1fr)}.nlist{position:static;max-height:260px;border-right:0;border-bottom:1px solid var(--rule);padding:0 0 10px}#nbody{min-height:50vh}}
 @media (prefers-reduced-motion: reduce){*{transition:none!important}}
 </style>
 </head>
@@ -618,7 +660,7 @@ ROADMAPS.push({key:"dsa", name:"DSA", title:"Data structures and algorithms", su
   > Re-solve all problems in this roadmap marked hard for you, timed
   > Complete 6 mock coding interviews and write down feedback
 `});
-ROADMAPS.push({key:"sd", name:"System design", title:"System design", sub:"Fundamentals first, then classic problems, then the enterprise, data and AI designs FDE interviews actually ask. Draw every design (Excalidraw) and write the tradeoffs.", text:String.raw`
+ROADMAPS.push({key:"sd", name:"System design", title:"System design", sub:"Fundamentals first, then classic problems, then the enterprise, data and AI designs and what interviewer actually ask. Draw every design (Excalidraw) and write the tradeoffs.", text:String.raw`
 ## SQL and relational databases | Month 2
 - Querying :: SELECT, WHERE, ORDER BY, LIMIT, DISTINCT, LIKE, IN, BETWEEN, NULL handling
 - Aggregation :: GROUP BY, HAVING, COUNT / SUM / AVG, COUNT(DISTINCT)
@@ -1153,8 +1195,175 @@ async function gistPull(){
     if(r&&r.checked&&(r.t||0)>(state.t||0)){ state={checked:{...r.checked},t:r.t}; persistLocal(); render(); setGistMsg("Synced with GitHub at "+nowTime()); }
     else if(!r||(state.t||0)>(r.t||0)){ await gistPush(); }
     else setGistMsg("Synced with GitHub at "+nowTime());
-  }catch(e){ setGistMsg(gistError(e)); }
+    await notesFromGist(g);
+  }catch(e){ setGistMsg(gistError(e)); setNotesMsg(gistError(e)); }
   finally{ gistBusy=false; }
+}
+async function readGistFile(g,name){
+  const f=g.files&&g.files[name]; if(!f) return null;
+  let txt=f.content; if(f.truncated&&f.raw_url){ txt=await (await fetch(f.raw_url,{cache:"no-store"})).text(); }
+  try{ return JSON.parse(txt); }catch(e){ return null; }
+}
+
+// ---------- Notes ----------
+const NS_KEY="fde-handbook-notes-v1", GNOTES="fde-handbook-notes.json";
+let notes={}, activeNote=null, notesTimer=null, notesPushing=false, notesMsg="", noteQuery="", notePreview=false;
+try{const n=JSON.parse(localStorage.getItem(NS_KEY)||"null"); if(n&&n.notes) notes=n.notes; if(n&&n.active) activeNote=n.active;}catch(e){}
+function persistNotes(){ try{ localStorage.setItem(NS_KEY,JSON.stringify({notes,active:activeNote})); }catch(e){ setNotesMsg("This browser is out of storage space for notes."); } }
+function setNotesMsg(m){ notesMsg=m; document.querySelectorAll("[data-notesmsg]").forEach(el=>el.textContent=m); }
+function mergeNotes(local,remote){
+  const out={...local}; let changed=false;
+  for(const [id,n] of Object.entries(remote||{})){ if(!out[id]||(n.u||0)>(out[id].u||0)){ out[id]=n; changed=true; } }
+  return {merged:out,changed};
+}
+function localAhead(local,remote){ remote=remote||{}; return Object.entries(local).some(([id,n])=>!remote[id]||(n.u||0)>(remote[id].u||0)); }
+const notesPayload=()=>JSON.stringify({app:"fde-handbook-notes",v:1,notes});
+async function notesFromGist(g){
+  const rn=await readGistFile(g,GNOTES); const remote=(rn&&rn.notes)||{};
+  const {merged,changed}=mergeNotes(notes,remote);
+  if(changed){ notes=merged; persistNotes(); refreshNotesUI(); }
+  if(localAhead(notes,remote)) scheduleNotes(true); else if(!notesTimer&&!notesPushing) setNotesMsg("Synced with GitHub at "+nowTime());
+}
+async function notesPush(){
+  notesTimer=null; if(!gist) return;
+  if(notesPushing){ scheduleNotes(); return; }
+  notesPushing=true;
+  try{
+    const g=await gh(gist.token,"/gists/"+gist.id);
+    const rn=await readGistFile(g,GNOTES);
+    const {merged,changed}=mergeNotes(notes,(rn&&rn.notes)||{});
+    if(changed){ notes=merged; persistNotes(); refreshNotesUI(); }
+    await gh(gist.token,"/gists/"+gist.id,{method:"PATCH",body:JSON.stringify({files:{[GNOTES]:{content:notesPayload()}}})});
+    setNotesMsg("Synced with GitHub at "+nowTime());
+  }catch(e){ setNotesMsg(gistError(e)); }
+  finally{ notesPushing=false; }
+}
+function scheduleNotes(soon){
+  if(!gist||IN_CLAUDE){ setNotesMsg("Saved on this device"); return; }
+  clearTimeout(notesTimer); setNotesMsg("Saving…");
+  notesTimer=setTimeout(notesPush, soon?200:1500);
+}
+const newId=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const liveNotes=()=>Object.entries(notes).filter(([,n])=>!n.del);
+function fmtDate(ms){ const d=new Date(ms), now=new Date(); return d.toDateString()===now.toDateString()? d.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"}) : d.toLocaleDateString([], {day:"numeric",month:"short",year: d.getFullYear()===now.getFullYear()?undefined:"numeric"}); }
+function snippet(b){ return (b||"").replace(/[#>*_`\-\[\]|]/g," ").replace(/\s+/g," ").trim().slice(0,90); }
+// topics: each roadmap is a topic, plus General
+let noteTopic="all", rmMode={};
+try{ const v=JSON.parse(localStorage.getItem("fde-handbook-view")||"null"); if(v){ noteTopic=v.noteTopic||"all"; rmMode=v.rmMode||{}; } }catch(e){}
+function saveView(){ try{ localStorage.setItem("fde-handbook-view",JSON.stringify({noteTopic,rmMode})); }catch(e){} }
+const TOPICS=()=>data.map(r=>({key:r.key,name:r.name})).concat([{key:"gen",name:"General"}]);
+const topicOf=n=>(n.topic&&(n.topic==="gen"||data.some(r=>r.key===n.topic)))?n.topic:"gen";
+const topicName=k=>(TOPICS().find(t=>t.key===k)||{name:"General"}).name;
+function secsOf(k){ const rm=data.find(r=>r.key===k); return rm?rm.secs.filter(x=>x.type==="sec").map(x=>x.title):[]; }
+function notesScope(){ if(current==="notes") return noteTopic; if(data.some(r=>r.key===current)&&rmMode[current]==="notes") return current; return null; }
+function countTopic(k,sec){ return liveNotes().filter(([,n])=>(k==="all"||topicOf(n)===k)&&(sec===undefined||n.sec===sec)).length; }
+function visibleNotes(scope){
+  const q=noteQuery.trim().toLowerCase();
+  return liveNotes().filter(([,n])=>(scope==="all"||topicOf(n)===scope)&&(!q||((n.title||"")+" "+(n.body||"")).toLowerCase().includes(q))).sort((a,b)=>(b[1].u||0)-(a[1].u||0));
+}
+function itemBtn(id,n,showTopic){
+  return `<button class="nitem" data-act="nopen" data-nid="${id}" aria-current="${id===activeNote}"><b>${esc(n.title||"Untitled")}</b><span>${esc(snippet(n.body))||"&nbsp;"}</span><time>${esc(fmtDate(n.u||0))}</time>${showTopic?`<em class="ntag">${esc(topicName(topicOf(n)))}</em>`:""}</button>`;
+}
+function noteListHTML(scope){
+  if(scope==null) scope=notesScope()||"all";
+  const list=visibleNotes(scope);
+  if(!list.length) return `<p class="nempty">${noteQuery.trim()?"No notes match that search.":scope==="all"?"No notes yet. Create one to start.":`No ${esc(topicName(scope))} notes yet. Create one to start.`}</p>`;
+  if(scope==="all") return list.map(([id,n])=>itemBtn(id,n,true)).join("");
+  const secs=secsOf(scope), groups=new Map(), other=[];
+  secs.forEach(t=>groups.set(t,[]));
+  list.forEach(e=>{ const t=e[1].sec; if(t&&groups.has(t)) groups.get(t).push(e); else other.push(e); });
+  let h="";
+  for(const [t,arr] of groups) if(arr.length) h+=`<div class="ngroup">${esc(t)}</div>`+arr.map(([id,n])=>itemBtn(id,n,false)).join("");
+  if(other.length) h+=(h?`<div class="ngroup">Other notes</div>`:"")+other.map(([id,n])=>itemBtn(id,n,false)).join("");
+  return h;
+}
+function refreshNotesUI(){
+  document.querySelectorAll('[data-tabpct="notes"]').forEach(el=>el.textContent=liveNotes().length);
+  if(!notesScope()) return;
+  const ae=document.activeElement;
+  if(ae&&(ae.id==="nbody"||ae.id==="ntitle"||ae.id==="nq")){ const li=document.getElementById("nlistitems"); if(li) li.innerHTML=noteListHTML(); return; }
+  render();
+}
+function editNote(field,val){
+  const n=notes[activeNote]; if(!n) return;
+  notes[activeNote]={...n,[field]:val,u:Date.now()}; persistNotes();
+  const li=document.getElementById("nlistitems"); if(li) li.innerHTML=noteListHTML();
+  scheduleNotes();
+}
+function createNote(title,body,topic,sec){
+  const id=newId(), t=Date.now(); notes[id]={title:title||"",body:body||"",topic:topic||"gen",sec:sec||"",c:t,u:t}; return id;
+}
+
+// Minimal, safe Markdown renderer (escapes everything first)
+function mdInline(s){
+  const codes=[]; s=esc(s).replace(/`([^`]+)`/g,(m,c)=>{codes.push(c);return "\u0000"+(codes.length-1)+"\u0000";});
+  s=s.replace(/\[([^\]]+)\]\(((?:https?:\/\/|mailto:)[^\s)]+)\)/g,(m,t,u)=>`<a href="${u}" target="_blank" rel="noopener">${t}</a>`)
+     .replace(/(^|[\s(])(https?:\/\/[^\s<)]+)/g,(m,p,u)=>`${p}<a href="${u}" target="_blank" rel="noopener">${u}</a>`)
+     .replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>").replace(/__([^_]+)__/g,"<strong>$1</strong>")
+     .replace(/(^|[^*])\*([^*\s][^*]*)\*/g,"$1<em>$2</em>").replace(/(^|[\s(])_([^_\s][^_]*)_/g,"$1<em>$2</em>")
+     .replace(/~~([^~]+)~~/g,"<del>$1</del>");
+  return s.replace(/\u0000(\d+)\u0000/g,(m,i)=>`<code>${codes[+i]}</code>`);
+}
+function md(src){
+  const lines=(src||"").replace(/\r\n?/g,"\n").split("\n"); let out="", i=0, para=[];
+  const flush=()=>{ if(para.length){ out+=`<p>${para.map(mdInline).join("<br>")}</p>`; para=[]; } };
+  while(i<lines.length){
+    const line=lines[i];
+    let m;
+    if((m=line.match(/^\s*```\s*([\w+-]*)/))){ flush(); const buf=[]; i++; while(i<lines.length&&!/^\s*```/.test(lines[i])){buf.push(lines[i]);i++;} i++; out+=`<pre><code${m[1]?` data-lang="${esc(m[1])}"`:""}>${esc(buf.join("\n"))}</code></pre>`; continue; }
+    if((m=line.match(/^(#{1,6})\s+(.*)$/))){ flush(); const l=m[1].length; out+=`<h${l}>${mdInline(m[2])}</h${l}>`; i++; continue; }
+    if(/^\s*([-*_])(\s*\1){2,}\s*$/.test(line)){ flush(); out+="<hr>"; i++; continue; }
+    if(/^\s*>/.test(line)){ flush(); const buf=[]; while(i<lines.length&&/^\s*>/.test(lines[i])){buf.push(lines[i].replace(/^\s*>\s?/,""));i++;} out+=`<blockquote>${md(buf.join("\n"))}</blockquote>`; continue; }
+    if(/\|/.test(line)&&i+1<lines.length&&/^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?\s*$/.test(lines[i+1])){
+      flush(); const cells=r=>r.trim().replace(/^\||\|$/g,"").split("|").map(c=>c.trim());
+      const head=cells(line); i+=2; const rows=[];
+      while(i<lines.length&&/\|/.test(lines[i])&&lines[i].trim()){rows.push(cells(lines[i]));i++;}
+      out+=`<div class="mdtable"><table><tr>${head.map(h=>`<th>${mdInline(h)}</th>`).join("")}</tr>${rows.map(r=>`<tr>${r.map(c=>`<td>${mdInline(c)}</td>`).join("")}</tr>`).join("")}</table></div>`; continue;
+    }
+    if(/^\s*([-*+]|\d+[.)])\s+/.test(line)){
+      flush(); const stack=[];
+      while(i<lines.length&&/^\s*([-*+]|\d+[.)])\s+/.test(lines[i])){
+        const mm=lines[i].match(/^(\s*)([-*+]|\d+[.)])\s+(.*)$/); const ind=mm[1].replace(/\t/g,"    ").length; const tag=/\d/.test(mm[2])?"ol":"ul";
+        while(stack.length&&ind<stack[stack.length-1].ind){ out+=`</li></${stack.pop().tag}>`; }
+        if(!stack.length||ind>stack[stack.length-1].ind){ out+=`<${tag}>`; stack.push({ind,tag}); } else out+="</li>";
+        let body=mm[3], task="";
+        const tm=body.match(/^\[([ xX])\]\s+(.*)$/); if(tm){ task=`<input type="checkbox" disabled ${tm[1]===" "?"":"checked"}> `; body=tm[2]; }
+        out+=`<li${task?' class="task"':""}>${task}${mdInline(body)}`; i++;
+      }
+      while(stack.length) out+=`</li></${stack.pop().tag}>`;
+      continue;
+    }
+    if(!line.trim()){ flush(); i++; continue; }
+    para.push(line); i++;
+  }
+  flush(); return out;
+}
+
+function notesPanelHTML(scope){
+  if(activeNote&&(!notes[activeNote]||notes[activeNote].del||(scope!=="all"&&topicOf(notes[activeNote])!==scope))) activeNote=null;
+  const n=activeNote&&notes[activeNote];
+  let editor=`<p class="nempty">Select a note from the list, or create a new one.</p>`;
+  if(n){
+    const tk=topicOf(n), secs=secsOf(tk);
+    const topicSel=`<label class="nsel">Topic <select id="ntopic">${TOPICS().map(t=>`<option value="${t.key}" ${t.key===tk?"selected":""}>${esc(t.name)}</option>`).join("")}</select></label>`;
+    const secSel=secs.length?`<label class="nsel">Section <select id="nsec"><option value="">No section</option>${secs.map(t=>`<option value="${esc(t)}" ${n.sec===t?"selected":""}>${esc(t)}</option>`).join("")}</select></label>`:"";
+    editor=`<input id="ntitle" class="ntitle" value="${esc(n.title||"")}" placeholder="Title" aria-label="Note title">
+    <div class="nfile">${topicSel}${secSel}</div>
+    <div class="tools"><button class="tbtn" data-act="ntoggle" aria-pressed="${notePreview}">${notePreview?"Back to editing":"Preview"}</button><button class="tbtn" data-act="ndl">Download .md</button><button class="tbtn" data-act="ndel">Delete note</button><span class="nmeta">Edited ${esc(fmtDate(n.u||0))}</span></div>
+    ${notePreview?`<div class="md" id="nprev">${md(n.body)||'<p class="nempty">Nothing to preview yet.</p>'}</div>`:`<textarea id="nbody" spellcheck="false" aria-label="Note text" placeholder="Write in Markdown. # for headings, - for lists, \`\`\`python for code blocks.">${esc(n.body||"")}</textarea>`}`;
+  }
+  const newLabel=scope==="all"?"New note":`New ${topicName(scope)} note`;
+  return `<div class="tools"><button class="tbtn" data-act="nnew">${esc(newLabel)}</button><button class="tbtn" data-act="nimp">Import .md files</button>${gist&&!IN_CLAUDE?'<button class="tbtn" data-act="nsync">Sync now</button>':""}<span class="nmsg" data-notesmsg role="status">${esc(notesMsg)}</span></div>
+  <div class="notes"><aside class="nlist"><input id="nq" type="search" placeholder="Search ${scope==="all"?"all notes":esc(topicName(scope))+" notes"}" aria-label="Search notes" value="${esc(noteQuery)}"><div id="nlistitems">${noteListHTML(scope)}</div></aside>
+  <section class="neditor" id="neditor">${editor}</section></div>`;
+}
+function renderNotes(){
+  const count=liveNotes().length;
+  const where=IN_CLAUDE?"Saved in this browser.":gist?"They save and sync through GitHub automatically, like your ticks.":"Right now they're saved only in this browser. Connect GitHub on the Plan tab to sync them across devices.";
+  const chips=[{key:"all",name:"All"}].concat(TOPICS()).map(t=>`<button class="chip" data-act="ntopicf" data-topic="${t.key}" aria-pressed="${noteTopic===t.key}">${esc(t.name)}<span>${countTopic(t.key)}</span></button>`).join("");
+  view.innerHTML=`<section class="hero"><div><h2>Notes</h2><div class="sub">Every note belongs to a topic. Open a roadmap tab and switch to Notes to see just that topic's notes. ${where}</div></div><div class="count"><span class="big">${count}</span><span class="of"> ${count===1?"note":"notes"}</span></div></section>
+  <div class="chips" role="group" aria-label="Show notes for">${chips}</div>
+  ${notesPanelHTML(noteTopic)}`;
 }
 async function gistConnect(token){
   token=(token||"").trim(); if(!token){ setGistMsg("Paste your GitHub token first."); return; }
@@ -1213,13 +1422,14 @@ const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&qu
 function pctOf(ids){if(!ids.length) return 0;return Math.round(ids.filter(isDone).length*100/ids.length);}
 
 function renderTabs(){
-  const list=[{key:"plan",name:"Plan"}].concat(data.map(r=>({key:r.key,name:r.name})));
+  const list=[{key:"plan",name:"Plan"}].concat(data.map(r=>({key:r.key,name:r.name})),[{key:"notes",name:"Notes"}]);
   tabsEl.innerHTML=list.map(t=>{
     const p=t.key==="plan"?"":`<span class="pct" data-tabpct="${t.key}"></span>`;
     return `<button role="tab" aria-selected="${t.key===current}" data-tab="${t.key}">${esc(t.name)}${p}</button>`;
   }).join("");
 }
-tabsEl.addEventListener("click",e=>{const b=e.target.closest("button[data-tab]");if(!b)return;current=b.dataset.tab;render();window.scrollTo({top:0});});
+tabsEl.addEventListener("click",e=>{const b=e.target.closest("button[data-tab]");if(!b)return;current=b.dataset.tab;noteQuery="";try{localStorage.setItem("fde-handbook-tab",current);}catch(err){}render();window.scrollTo({top:0});});
+try{ const t=localStorage.getItem("fde-handbook-tab"); if(t&&(t==="plan"||t==="notes"||data.some(r=>r.key===t))) current=t; }catch(e){}
 
 function itemHTML(it){
   const pr=it.practice.length?`<div class="plabel">Practice programs</div><ul class="prac">${it.practice.map(p=>`<li data-pid="${p.id}"><label class="chk"><input type="checkbox" data-id="${p.id}" ${isDone(p.id)?"checked":""}><span class="ptxt">${esc(p.t)}</span></label></li>`).join("")}</ul>`:"";
@@ -1234,9 +1444,15 @@ function renderRoadmap(rm){
       return `<div class="proj" data-sec="${s.id}"><h4>${esc(s.title)}</h4><div class="uses">Uses: ${esc(s.meta)}</div><ul>${s.items.map(it=>`<li data-pid="${it.id}"><label class="chk"><input type="checkbox" data-id="${it.id}" ${isDone(it.id)?"checked":""}><span class="ttl">${esc(it.title)}</span></label></li>`).join("")}</ul></div>`;
     }
     n++;
-    return `<details class="sec" data-sec="${s.id}" ${idx===firstOpen?"open":""}><summary><span class="secno">${String(n).padStart(2,"0")}</span><span class="sectitle"><span class="chev" aria-hidden="true">›</span>${esc(s.title)}<span class="secmeta">${esc(s.meta)}</span></span><span class="secprog" data-secprog="${s.id}"></span><span class="bar minibar"><i data-secbar="${s.id}"></i></span></summary><div class="body"><ul class="items">${s.items.map(itemHTML).join("")}</ul></div></details>`;
+    const nc=countTopic(rm.key,s.title);
+    const secNote=`<div class="secnotes"><button class="tbtn" data-act="secnote" data-sectitle="${esc(s.title)}">${nc?`Open notes for this section (${nc})`:"Add a note for this section"}</button></div>`;
+    return `<details class="sec" data-sec="${s.id}" ${idx===firstOpen?"open":""}><summary><span class="secno">${String(n).padStart(2,"0")}</span><span class="sectitle"><span class="chev" aria-hidden="true">›</span>${esc(s.title)}<span class="secmeta">${esc(s.meta)}</span></span><span class="secprog" data-secprog="${s.id}"></span><span class="bar minibar"><i data-secbar="${s.id}"></i></span></summary><div class="body"><ul class="items">${s.items.map(itemHTML).join("")}</ul>${secNote}</div></details>`;
   }).join("");
-  view.innerHTML=`<section class="hero"><div><h2>${esc(rm.title)}</h2><div class="sub">${esc(rm.sub)}</div></div><div class="count"><span class="big" data-rmdone="${rm.key}">0</span><span class="of"> / ${idsOfRm(rm).length}</span></div><div class="bar"><i data-rmbar="${rm.key}"></i></div></section>
+  const mode=rmMode[rm.key]==="notes"?"notes":"list";
+  const hero=`<section class="hero"><div><h2>${esc(rm.title)}</h2><div class="sub">${esc(rm.sub)}</div></div><div class="count"><span class="big" data-rmdone="${rm.key}">0</span><span class="of"> / ${idsOfRm(rm).length}</span></div><div class="bar"><i data-rmbar="${rm.key}"></i></div></section>`;
+  const sw=`<div class="seg" role="group" aria-label="Show"><button data-act="rmmode" data-mode="list" aria-pressed="${mode==="list"}">Checklist</button><button data-act="rmmode" data-mode="notes" aria-pressed="${mode==="notes"}">${esc(rm.name)} notes<span>${countTopic(rm.key)}</span></button></div>`;
+  if(mode==="notes"){ view.innerHTML=hero+sw+notesPanelHTML(rm.key); return; }
+  view.innerHTML=`${hero}${sw}
   <div class="tools"><button class="tbtn" data-act="expand">Expand all</button><button class="tbtn" data-act="collapse">Collapse all</button><button class="tbtn" data-act="hide" aria-pressed="${hideDone}">Hide completed</button><span class="sync"></span></div>
   <div class="${hideDone?"hide-done":""}" id="rmbody">${body}</div>`;
 }
@@ -1264,9 +1480,9 @@ function renderPlan(){
   <div class="plan">
   <h3>Month by month</h3>
   <div class="tablewrap"><table>
-  <tr><th>Month</th><th>Python</th><th>DSA</th><th>System design</th><th>GCP and DevOps</th><th>AI engineering</th><
-    // th>FDE interview</th>
-    </tr>
+  <tr><th>Month</th><th>Python</th><th>DSA</th><th>System design</th><th>GCP and DevOps</th><th>AI engineering</th>
+    // <th>FDE interview</th>
+  </tr>
   <tr><td>1</td><td>01 to 06 + mini project 1</td><td>01 to 04</td><td>none yet</td><td>01 to 04</td><td>01 to 02</td><td>01</td></tr>
   <tr><td>2</td><td>07 to 10 + mini project 2</td><td>05 to 07</td><td>01 to 02</td><td>05 to 07</td><td>03</td><td>none</td></tr>
   <tr><td>3</td><td>11 to 14 + Project A</td><td>08 to 10</td><td>03 to 05</td><td>08 to 10 + Project A on GCP</td><td>04 to 05</td><td>none</td></tr>
@@ -1329,11 +1545,67 @@ function refreshCounts(){
   const ab=document.querySelector("[data-allbar]"); if(ab) ab.style.width=ap+"%";
 }
 
+function showActiveTab(){ const at=tabsEl.querySelector('button[aria-selected="true"]'); if(!at) return; const tr=tabsEl.getBoundingClientRect(), br=at.getBoundingClientRect(); if(br.left<tr.left) tabsEl.scrollLeft-=tr.left-br.left+8; else if(br.right>tr.right) tabsEl.scrollLeft+=br.right-tr.right+8; }
+try{ document.fonts&&document.fonts.ready.then(()=>showActiveTab()); }catch(e){}
 function render(){
   renderTabs();
-  if(current==="plan") renderPlan(); else renderRoadmap(data.find(r=>r.key===current));
+  showActiveTab(); requestAnimationFrame(showActiveTab);
+  if(current==="plan") renderPlan(); else if(current==="notes") renderNotes(); else renderRoadmap(data.find(r=>r.key===current));
   setSync(syncMode); refreshCounts();
+  document.querySelectorAll('[data-tabpct="notes"]').forEach(el=>el.textContent=liveNotes().length);
 }
+
+// notes interactions
+view.addEventListener("input",e=>{
+  const id=e.target.id;
+  if(id==="nq"){ noteQuery=e.target.value; const li=document.getElementById("nlistitems"); if(li) li.innerHTML=noteListHTML(); }
+  if(id==="ntitle") editNote("title",e.target.value);
+  if(id==="nbody") editNote("body",e.target.value);
+});
+view.addEventListener("keydown",e=>{
+  if(e.target.id==="nbody"&&e.key==="Tab"&&!e.shiftKey){
+    e.preventDefault(); const t=e.target, s=t.selectionStart, en=t.selectionEnd;
+    t.value=t.value.slice(0,s)+"    "+t.value.slice(en); t.selectionStart=t.selectionEnd=s+4; editNote("body",t.value);
+  }
+});
+view.addEventListener("click",e=>{
+  const b=e.target.closest("[data-act]"); if(!b) return; const act=b.dataset.act;
+  if(act==="ntopicf"){ noteTopic=b.dataset.topic; noteQuery=""; saveView(); render(); return; }
+  if(act==="rmmode"){ rmMode[current]=b.dataset.mode; noteQuery=""; saveView(); render(); return; }
+  if(act==="secnote"){
+    const sec=b.dataset.sectitle, found=liveNotes().filter(([,n])=>topicOf(n)===current&&n.sec===sec).sort((x,y)=>(y[1].u||0)-(x[1].u||0));
+    activeNote=found.length?found[0][0]:createNote("","",current,sec); if(!found.length) scheduleNotes();
+    rmMode[current]="notes"; noteQuery=""; notePreview=false; saveView(); persistNotes(); render(); window.scrollTo({top:0});
+    const t=document.getElementById(found.length?"nbody":"ntitle"); if(t&&!found.length) t.focus(); return;
+  }
+  if(act==="nnew"){ const sc=notesScope()||"all"; activeNote=createNote("","",sc==="all"?"gen":sc); notePreview=false; persistNotes(); scheduleNotes(); render(); const t=document.getElementById("ntitle"); if(t){ t.focus(); if(window.innerWidth<760) t.scrollIntoView({block:"start"}); } }
+  if(act==="nopen"){ activeNote=b.dataset.nid; persistNotes(); render(); if(window.innerWidth<760){ const ed=document.getElementById("neditor"); if(ed) ed.scrollIntoView({block:"start"}); } }
+  if(act==="ntoggle"){ notePreview=!notePreview; render(); }
+  if(act==="nsync"){ gistPull(); }
+  if(act==="ndel"){ const n=notes[activeNote]; if(n&&confirm(`Delete "${n.title||"Untitled"}"? This removes it from every synced device.`)){ notes[activeNote]={title:"",body:"",u:Date.now(),del:true}; activeNote=null; persistNotes(); scheduleNotes(); render(); } }
+  if(act==="ndl"){ const n=notes[activeNote]; if(!n) return;
+    const name=((n.title||"note").replace(/[^\w\- ]+/g,"").trim().replace(/\s+/g,"-")||"note")+".md";
+    const text=(n.title?`# ${n.title}\n\n`:"")+(n.body||"");
+    const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob([text],{type:"text/markdown"})); a.download=name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),1000); }
+  if(act==="nimp"){
+    const inp=document.createElement("input"); inp.type="file"; inp.multiple=true; inp.accept=".md,.markdown,.txt,text/markdown,text/plain";
+    inp.onchange=async()=>{ const files=[...(inp.files||[])]; if(!files.length) return; let last=null;
+      for(const f of files){ const txt=await f.text(); let title=f.name.replace(/\.(md|markdown|txt)$/i,""), body=txt;
+        const h=txt.match(/^#\s+(.+)\n+/); if(h){ title=h[1].trim(); body=txt.slice(h[0].length); }
+        const sc=notesScope()||"all"; last=createNote(title,body,sc==="all"?"gen":sc); }
+      activeNote=last; notePreview=false; persistNotes(); scheduleNotes(); render(); setNotesMsg(`Imported ${files.length} ${files.length===1?"note":"notes"}.`+(gist&&!IN_CLAUDE?" Syncing…":"")); };
+    inp.click();
+  }
+});
+view.addEventListener("change",e=>{
+  const id=e.target.id, n=notes[activeNote]; if(!n) return;
+  if(id==="ntopic"){ const k=e.target.value, sc=notesScope();
+    notes[activeNote]={...n,topic:k,sec:"",u:Date.now()}; persistNotes(); scheduleNotes();
+    if(sc&&sc!=="all"&&sc!==k){ const t=topicName(k); render(); setNotesMsg(`Moved to ${t} notes.`); } else render(); }
+  if(id==="nsec"){ editNote("sec",e.target.value); }
+});
+window.addEventListener("beforeunload",e=>{ if(notesTimer||notesPushing){ e.preventDefault(); e.returnValue=""; } });
+document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="hidden"&&notesTimer){ clearTimeout(notesTimer); notesPush(); } });
 
 view.addEventListener("change",e=>{const c=e.target.closest("input[type=checkbox][data-id]"); if(c) toggle(c.dataset.id,c.checked);});
 view.addEventListener("click",e=>{
